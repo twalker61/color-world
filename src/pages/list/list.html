@@ -1,0 +1,21 @@
+
+
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Let's Color!</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+<div id = "wrapper">
+<div class = "img-block">
+  <img id = "opt1" src='assets/imgs/free_color_button.png' (click)="chooseMode($event)">
+</div>
+<div class = "img-block">
+  <img id = "opt2" src='assets/imgs/color_game_button.png' (click)="chooseMode($event)">
+</div>
+</div>
+</ion-content>

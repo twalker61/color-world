@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1485px" height="1024px" viewBox="0 0 1485 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 51.2 (57519) - http://www.bohemiancoding.com/sketch -->
+    <title>SpaghettiChallenge Copy 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="1485" height="1030"></rect>
+        <pattern id="pattern-3" width="26.2205882" height="26.2205882" x="1455.81472" y="583.815941" patternUnits="userSpaceOnUse">
+            <use xlink:href="#image-4" transform="scale(0.546262255,0.546262255)"></use>
+        </pattern>
+        <image id="image-4" width="48" height="48" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAEGWlDQ1BrQ0dDb2xvclNwYWNlR2VuZXJpY1JHQgAAOI2NVV1oHFUUPrtzZyMkzlNsNIV0qD8NJQ2TVjShtLp/3d02bpZJNtoi6GT27s6Yyc44M7v9oU9FUHwx6psUxL+3gCAo9Q/bPrQvlQol2tQgKD60+INQ6Ium65k7M5lpurHeZe58853vnnvuuWfvBei5qliWkRQBFpquLRcy4nOHj4g9K5CEh6AXBqFXUR0rXalMAjZPC3e1W99Dwntf2dXd/p+tt0YdFSBxH2Kz5qgLiI8B8KdVy3YBevqRHz/qWh72Yui3MUDEL3q44WPXw3M+fo1pZuQs4tOIBVVTaoiXEI/MxfhGDPsxsNZfoE1q66ro5aJim3XdoLFw72H+n23BaIXzbcOnz5mfPoTvYVz7KzUl5+FRxEuqkp9G/Ajia219thzg25abkRE/BpDc3pqvphHvRFys2weqvp+krbWKIX7nhDbzLOItiM8358pTwdirqpPFnMF2xLc1WvLyOwTAibpbmvHHcvttU57y5+XqNZrLe3lE/Pq8eUj2fXKfOe3pfOjzhJYtB/yll5SDFcSDiH+hRkH25+L+sdxKEAMZahrlSX8ukqMOWy/jXW2m6M9LDBc31B9LFuv6gVKg/0Szi3KAr1kGq1GMjU/aLbnq6/lRxc4XfJ98hTargX++DbMJBSiYMIe9Ck1YAxFkKEAG3xbYaKmDDgYyFK0UGYpfoWYXG+fAPPI6tJnNwb7ClP7IyF+D+bjOtCpkhz6CFrIa/I6sFtNl8auFXGMTP34sNwI/JhkgEtmDz14ySfaRcTIBInmKPE32kxyyE2Tv+thKbEVePDfW/byMM1Kmm0XdObS7oGD/MypMXFPXrCwOtoYjyyn7BV29/MZfsVzpLDdRtuIZnbpXzvlf+ev8MvYr/Gqk4H/kV/G3csdazLuyTMPsbFhzd1UabQbjFvDRmcWJxR3zcfHkVw9GfpbJmeev9F08WW8uDkaslwX6avlWGU6NRKz0g/SHtCy9J30o/ca9zX3Kfc19zn3BXQKRO8ud477hLnAfc1/G9mrzGlrfexZ5GLdn6ZZrrEohI2wVHhZywjbhUWEy8icMCGNCUdiBlq3r+xafL549HQ5jH+an+1y+LlYBifuxAvRN/lVVVOlwlCkdVm9NOL5BE4wkQ2SMlDZU97hX86EilU/lUmkQUztTE6mx1EEPh7OmdqBtAvv8HdWpbrJS6tJj3n0CWdM6busNzRV3S9KTYhqvNiqWmuroiKgYhshMjmhTh9ptWhsF7970j/SbMrsPE1suR5z7DMC+P/Hs+y7ijrQAlhyAgccjbhjPygfeBTjzhNqy28EdkUh8C+DU9+z2v/oyeH791OncxHOs5y2AtTc7nb/f73TWPkD/qwBnjX8BoJ98VQNcC+8AAADBSURBVGgF7ZdBDoAgDASJ8Vn+Xv+lcKghHggIPWwzJAQVWNspBU2J0iRw5N5S3crmpowwBJYQIAeWYEREmAA5IBw8TF9CgBxYghERYQJXtv0Utj/d2fhS3Yr8Dw0OuK2NTuEwEfiemKP3ZaexhK1b41g/s+t6dxp93ztePgJGyKs12l76ST4COOC2NjqF5SOwdzr6d1j5mKNAYILAe2JOaDSnyidx0zs6AxAgBwIEERemCJADU/iYHIAAORAgiG0XHti1GWyhsUX6AAAAAElFTkSuQmCC"></image>
+    </defs>
+    <g id="SpaghettiChallenge-Copy-2" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <rect fill="#FFFFFF" x="0" y="0" width="1485" height="1024"></rect>
+        <g id="Group">
+            <g>
+                <mask id="mask-2" fill="white">
+                    <use xlink:href="#path-1"></use>
+                </mask>
+                <use id="Mask" fill="#FFFFFF" xlink:href="#path-1"></use>
+                <g mask="url(#mask-2)">
+                    <g transform="translate(-684.000000, -614.000000)">
+                        <ellipse class="img-piece" id="Oval-6" stroke="#000000" stroke-width="1" fill="#FFFFFF" fill-rule="evenodd" cx="718.5" cy="692.5" rx="245.5" ry="256.5"></ellipse>
+                        <ellipse class="img-piece" id="Oval-6-Copy" stroke="#000000" stroke-width="1" fill="none" transform="translate(833.500000, 748.000000) rotate(-43.000000) translate(-833.500000, -748.000000) " cx="833.5" cy="748" rx="668.5" ry="365"></ellipse>
+                        <ellipse class="img-piece" id="Oval-6-Copy-2" stroke="#000000" stroke-width="1" fill="none" transform="translate(945.000000, 853.500000) rotate(-43.000000) translate(-945.000000, -853.500000) " cx="945" cy="853.5" rx="792" ry="406.5"></ellipse>
+                        <ellipse class="img-piece" id="Oval-6-Copy-3" stroke="#000000" stroke-width="1" fill="none" transform="translate(995.500000, 943.000000) rotate(-39.000000) translate(-995.500000, -943.000000) " cx="995.5" cy="943" rx="865.5" ry="512"></ellipse>
+                        <circle class="img-piece" id="Oval-7" stroke="#000000" stroke-width="1" fill="#FFFFFF" fill-rule="evenodd" cx="1170.5" cy="932.5" r="42.5"></circle>
+                        <circle class="img-piece" id="Oval-7-Copy" stroke="#000000" stroke-width="1" fill="#FFFFFF" fill-rule="evenodd" cx="1213.5" cy="1168.5" r="42.5"></circle>
+                        <circle class="img-piece" id="Oval-7-Copy-2" stroke="#000000" stroke-width="1" fill="#FFFFFF" fill-rule="evenodd" cx="1099" cy="1459" r="54"></circle>
+                        <path class="img-piece" d="M2017,614 C1972.67915,857.297879 1885.34581,1060.46455 1755,1223.5 C1624.65419,1386.53545 1448.65419,1524.70212 1227,1638" id="Path-21" stroke="#000000" stroke-width="1" fill="none"></path>
+                        <path class="img-piece" d="M2361,794 C2316.67915,1037.29788 2229.34581,1240.46455 2099,1403.5 C1968.65419,1566.53545 1792.65419,1704.70212 1571,1818" id="Path-21-Copy" stroke="#000000" stroke-width="1" fill="none"></path>
+                        <path class="img-piece" d="M2258.81448,613.957999 C2214.49363,857.255878 2127.16029,1060.42254 1996.81448,1223.458 C1877.65918,1372.49646 1720.35223,1500.75292 1524.89365,1608.2274 C1512.65595,1614.9564 1498.36983,1613.70652 1482.0353,1604.47778 C1724.39857,1452.3664 1903.76632,1297.25866 2020.13854,1139.15455 C2136.51077,981.050446 2201.12855,804.677772 2213.99188,610.03653 L2258.81448,613.957999 Z" id="Path-21-Copy-2" stroke="none" fill="url(#pattern-3)" fill-rule="evenodd" transform="translate(1870.424892, 1111.260057) rotate(-5.000000) translate(-1870.424892, -1111.260057) "></path>
+                        <circle class="img-piece" id="Oval-7-Copy-3" stroke="#000000" stroke-width="1" fill="#FFFFFF" fill-rule="evenodd" cx="1509.5" cy="1470.5" r="82.5"></circle>
+                        <circle class="img-piece" id="Oval-7-Copy-4" stroke="#000000" stroke-width="1" fill="#FFFFFF" fill-rule="evenodd" cx="2070" cy="1415" r="138"></circle>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

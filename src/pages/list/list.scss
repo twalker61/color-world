@@ -1,0 +1,24 @@
+page-list {
+
+}
+
+img {
+	width:100%;
+	height:100%;
+	
+}
+
+.img-block {
+	display:block;
+	padding:1em;
+	width:60%;
+	height:25%;
+}
+
+#wrapper {
+	display:flex;
+	justify-content:center;
+	align-items:center;
+	flex-flow:column;
+}
+

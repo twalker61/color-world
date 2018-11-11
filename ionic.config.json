@@ -1,0 +1,7 @@
+{
+  "name": "ColoringBookokPort",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
