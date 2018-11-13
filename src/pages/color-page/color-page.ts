@@ -1,4 +1,6 @@
-import { Component, ElementRef, Renderer2 } from '@angular/core';
+import { Component, ElementRef, ViewChild} from '@angular/core';
+
+import {Platform} from 'ionic-angular';
 
 import { NavController, NavParams } from 'ionic-angular';
 
@@ -14,33 +16,63 @@ import {PickPicturePage} from '../pick-picture/pick-picture'
 })
 
 export class ColorPage {
-	img = "";
-	mainImg:string="../assets/imgs/splash_screen.png"
-  constructor(public navCtrl: NavController, public navParams: NavParams, private element: ElementRef, private renderer: Renderer2, private cameraPreview: CameraPreview) {
-  	this.mainImg = navParams.get("img");
-  	console.log(this.mainImg);
-  	/*if (this.img == "img1") {
-  		this.mainImg = "../assets/imgs/IMG_1.svg"
-  	} else if (this.img == "img2") {
-  		this.mainImg = "../assets/imgs/IMG_2.svg"
-  	} else if (this.img == "img3") {
-  		this.mainImg = "../assets/imgs/IMG_3.svg"
-  	} else if (this.img == "img4") {
-  		this.mainImg = "../assets/imgs/IMG_10.svg"
-  	} else if (this.img == "img5") {
-  		this.mainImg = "../assets/imgs/IMG_11.svg"
-  	} else if (this.img == "img6") {
-  		this.mainImg = "../assets/imgs/SampleImg.svg"
-  	} else if (this.img == "img7") {
-  		this.mainImg = "../assets/imgs/Scenery_1.svg"
-  	} else if (this.img == "img8") {
-  		this.mainImg = "../assets/imgs/IMG_New.svg"
-  	} else if (this.img == "img9") {
-  		this.mainImg = "../assets/imgs/noun_parsley_2003024.svg"
-  	}*/ 
+@ViewChild('canvas') canvasEl : ElementRef;
+private _CANVAS  : any;
+private _CONTEXT  : any;
+ img = new Image();
+ private height : any;
+ private width: any;
+ private x : any;
+ private y : any;
+ mode:string="";
+  mainImg:string="../assets/imgs/splash_screen.png";
+  constructor(public navCtrl: NavController, public navParams: NavParams, private element: ElementRef, private cameraPreview: CameraPreview, platform: Platform) {
+    this.mainImg = navParams.get("img");
+    this.mode = navParams.get("mode");
+    console.log(this.mainImg);
 
-  	
-  	
+    platform.ready().then((readySource => {
+      this.width = platform.width();
+      this.height = platform.height();
+    }))
+    
+  }
+
+  ionViewDidLoad() {
+     this._CANVAS = this.canvasEl.nativeElement;
+     console.log(this.width);
+     this._CANVAS.width = this.width;
+     this._CANVAS.height = this.height;
+     this.initialiseCanvas();
+     this.img.onload = () => {
+        //let pixelData = this._CONTEXT.getImageData(this.img.x, this.img.y, this.img.width, this.img.height);
+        if (this.img.height > this.img.width) {
+          var ratio = this.img.width/this.img.height;
+          this.img.height = this.height;
+          this.img.width = ratio * this.img.height;
+        } else {
+          var ratio = this.img.height/this.img.width;
+          this.img.width = this.width;
+          this.img.height = ratio * this.img.width;
+        }
+        if (this.img.width > this.width) {
+          var ratio = this.img.height/this.img.width;
+          this.img.width = this.width;
+          this.img.height = ratio * this.img.width;
+        } else if (this.img.height > this.height) {
+          var ratio = this.img.width/this.img.height;
+          this.img.height = this.height;
+          this.img.width = ratio * this.img.height;
+        }
+        this._CONTEXT.drawImage(this.img, 0, 0, this.img.width, this.img.height);
+     };
+     this.img.src = this.mainImg;
+  }
+  initialiseCanvas() {
+     if(this._CANVAS.getContext)
+     {
+        this._CONTEXT = this._CANVAS.getContext('2d');
+     }
   }
 
   camera() {
@@ -48,49 +80,119 @@ export class ColorPage {
   }
 
   goBack() {
-    this.navCtrl.push(PickPicturePage);
+    this.navCtrl.push(PickPicturePage, {mode: this.mode});
   }
 
-  /*ngAfterViewInit() {
-  let a = document.getElementById("picture");
+  getPixel(pixelData, x, y) {
+      if (x < 0 || y < 0 || x >= pixelData.width || y >= pixelData.height) {
+          return NaN;
+      }
+      var pixels = pixelData.data;
+      var i = (y * pixelData.width + x) * 4;
+      return ((pixels[i + 0] & 0xFF) << 24) |
+             ((pixels[i + 1] & 0xFF) << 16) |
+             ((pixels[i + 2] & 0xFF) <<  8) |
+             ((pixels[i + 3] & 0xFF) <<  0);
+  }
+  convertColor(r,g,b) {
+      return ((r & 0xFF) << 24) |
+             ((g & 0xFF) << 16) |
+             ((b & 0xFF) <<  8) |
+             ((255 & 0xFF) <<  0);
+  }
 
-            // It's important to add an load event listener to the object,
-            // as it will load the svg doc asynchronously
-            a.addEventListener("load",function(){
+  getR(color) {
+    return (color >>> 24) & 0xFF;
+  }
+  getG(color) {
+    return (color >>> 16) & 0xFF;
+  }
+  getB(color) {
+    return (color >>>  8) & 0xFF;
+  }
 
-                // get the inner DOM of alpha.svg
-                let svgDoc = (<HTMLIFrameElement>a).contentDocument;
-                // get the inner element by id
-                let delta = svgDoc.getElementById("Oval-6-Copy-2");
-                // add behaviour
-                delta.addEventListener("mousedown",function(){
-                        alert('hello world!')
-                }, false);
-            }, false);
-  }*/
+  isWhite(color) {
+    return (this.getR(color) > 240 && this.getG(color) > 240 && this.getB(color) > 240)
+  }
 
+  setPixel(pixelData, x, y, color) {
+      var i = (y * pixelData.width + x) * 4;
+      var pixels = pixelData.data;
+      pixels[i + 0] = (color >>> 24) & 0xFF;
+      pixels[i + 1] = (color >>> 16) & 0xFF;
+      pixels[i + 2] = (color >>>  8) & 0xFF;
+      pixels[i + 3] = (color >>>  0) & 0xFF;
+  }
 
+  click(event) {
+    this.floodFill(this._CANVAS, event.clientX, event.clientY, 175,238,238);
+  }
 
-  /*ngAfterViewInit() {
-  	this.renderer.listen(this.element.nativeElement, 'click', () => {
-  		console.log(this.element);
-  		this.renderer.setStyle(this.element.nativeElement.children[1].img, 'fill', 'red');
-  	})
-  	let svg = document.getElementById("picture");
-  console.log(svg.firstElementChild);
-  	//let svgDom = svg.contentDocument;
-  		//console.log(svgDom);
-  	svg.addEventListener("load", function() {
-  		let svgDom = (<HTMLIFrameElement>svg).contentDocument;
-  		console.log(svgDom);
-  		let pieces = svg.querySelectorAll(".img-piece");
-  		console.log(pieces);
-  		for (let i = 0; i < pieces.length; i++) {
-  			pieces[i].addEventListener('click', function() {
-  				console.log("clicked");
-  			});
-  		}
-  	})
-  }*/
+  floodFill(canvas, x, y, r, g, b) {
+      x-= canvas.offsetLeft;
+      y-=canvas.offsetTop;
+      var current, w, e, stack, color, cx, cy;
+      var context = canvas.getContext("2d");
+      var pixelData = context.getImageData(0, 0, canvas.width, canvas.height);
+      //console.log(this.getPixel(pixelData, x, y));
+      var replacementColor = this.convertColor(r,g,b);
+      //console.log(replacementColor);
+      var firstColor = this.getPixel(pixelData, x, y);
+      console.log(this.getR(firstColor));
+      console.log(this.getG(firstColor));
+      console.log(this.getB(firstColor));
+      var done = [];
+      for (var i = 0; i < canvas.width; i++) {
+          done[i] = [];
+      }
+
+      var targetColor = this.getPixel(pixelData, x, y);
+
+      stack = [ [x, y] ];
+      //console.log(x)
+      done[x][y] = true;
+      while ((current = stack.pop())) {
+          cx = current[0];
+          cy = current[1];
+          if (this.isWhite(this.getPixel(pixelData, cx, cy))) {
+              this.setPixel(pixelData, cx, cy, replacementColor);
+
+              w = e = cx;
+              while (w > 0 && this.isWhite(this.getPixel(pixelData, w - 1, cy))) {
+                  --w;
+                  if (done[w][cy]) break;
+                  this.setPixel(pixelData, w, cy, replacementColor);
+              }
+              while (e < pixelData.width - 1 && this.isWhite(this.getPixel(pixelData, e + 1, cy))) {
+                  ++e;
+                  if (done[e][cy]) break;
+                  this.setPixel(pixelData, e, cy, replacementColor);
+              }
+
+              for (cx = w; cx <= e; cx++) {
+                  if (cy > 0) {
+                      color = this.getPixel(pixelData, cx, cy - 1);
+                      if (this.isWhite(color)) {
+                          if (!done[cx][cy - 1]) {
+                              stack.push([cx, cy - 1]);
+                              done[cx][cy - 1] = true;
+                          }
+                      }
+                  }
+                  if (cy < canvas.height - 1) {
+                      color = this.getPixel(pixelData, cx, cy + 1);
+                      if (this.isWhite(color)) {
+                          if (!done[cx][cy + 1]) {
+                              stack.push([cx, cy + 1]);
+                              done[cx][cy + 1] = true;
+                          }
+                      }
+                  }
+              }
+          }
+      }
+
+      context.putImageData(pixelData, 0, 0, 0, 0, canvas.width, canvas.height);
+  }
 
 }

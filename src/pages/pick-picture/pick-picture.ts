@@ -20,7 +20,7 @@ export class PickPicturePage {
   startColoring(event) {
   let pic = event.srcElement.src;
   	if (this.mode == "opt1") {
-  		this.navCtrl.push(ColorPage, {img: pic});
+  		this.navCtrl.push(ColorPage, {img: pic, mode: this.mode});
   	} if (this.mode == "opt2") {
 
   	}
