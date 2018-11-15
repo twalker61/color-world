@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 
 import {ColorPage} from '../color-page/color-page'
+import {ListPage} from '../list/list'
 
 @Component({
   selector: 'page-pick-picture',
@@ -24,6 +25,10 @@ export class PickPicturePage {
   	} if (this.mode == "opt2") {
 
   	}
+  }
+
+  goToHome() {
+    this.navCtrl.push(ListPage);
   }
 
 }

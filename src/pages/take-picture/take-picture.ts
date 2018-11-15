@@ -21,9 +21,9 @@ export class TakePicturePage {
 	  private _CANVAS  : any;
 	  private _CONTEXT : any;
 	img:string="";
+	mode;
 	colorblot:string="#000000";
 	trackerTask;
-	currentColor:string;
 	selectedColor:string;
 	colortest="start";
 	isOn:boolean = false;
@@ -32,6 +32,10 @@ export class TakePicturePage {
 	button;
 	pictureCanvas;
 	pictureContext;
+	currentColor:string;
+	color_R;
+	color_G;
+	color_B;
 	automaticColorPicker = window.setInterval(() => this.takePicture(), 900);
 	cameraPreviewOpts: CameraPreviewOptions = {
 	      x: 10,
@@ -48,6 +52,7 @@ export class TakePicturePage {
 	constructor(public navCtrl: NavController, public navParams: NavParams, private cameraPreview: CameraPreview) {
 		this.startCamera();
 		this.img = navParams.get("img");
+		this.mode = navParams.get("mode");
 	}
 
 	startCamera() {
@@ -58,12 +63,47 @@ export class TakePicturePage {
 
 	selectColor() {
 		this.colorblot = "#FFFFFF";
-		// this.currentColor = "#FFFFFF";
-		// this.button.setAttribute("color", this.currentColor);
-		// this.takePicture();
 
 		//this.cameraPreview.stopCamera();
-		this.navCtrl.push(ColorPage, {img: this.img});
+		console.log("current color: " + this.currentColor);
+		if (this.currentColor == this.colors[0]) {
+			this.color_R = 0;
+			this.color_G = 255;
+			this.color_B = 255;
+		} else if (this.currentColor == this.colors[1]) {
+			this.color_R =105;
+			this.color_G =105;
+			this.color_B =105;
+		} else if (this.currentColor == this.colors[2]) {
+			this.color_R =255;
+			this.color_G =105;
+			this.color_B =180;
+		} else if (this.currentColor == this.colors[3]) {
+			this.color_R =255;
+			this.color_G =255;
+			this.color_B =0;
+		} else if (this.currentColor == this.colors[4]) {
+			this.color_R =255;
+			this.color_G =165;
+			this.color_B =0;
+		} else if (this.currentColor == this.colors[5]) {
+			this.color_R =255;
+			this.color_G =0;
+			this.color_B =0;
+		} else if (this.currentColor == this.colors[6]) {
+			this.color_R =0;
+			this.color_G =0;
+			this.color_B =255;
+		} else if (this.currentColor == this.colors[7]) {
+			this.color_R =0;
+			this.color_G =255;
+			this.color_B =0;
+		} else if (this.currentColor == this.colors[8]) {
+			this.color_R =148;
+			this.color_G =0;
+			this.color_B =211;
+		}
+		this.navCtrl.push(ColorPage, {img: this.img, r: this.color_R, g: this.color_G, b: this.color_B, mode: this.mode});
 	}
 
 	ionViewDidLoad() {
@@ -132,10 +172,10 @@ export class TakePicturePage {
 		// take a picture
 		// console.log("Took Picture!");
 		this.cameraPreview.takePicture(this.cameraPreviewOpts).then((imageData) => {
-		  this.img = 'data:image/jpeg;base64,' + imageData;
+		  //this.img = 'data:image/jpeg;base64,' + imageData;
 		  // making a canvas
 		  var picture = new Image(this._CANVAS.width, this._CANVAS.height);
-		  picture.src = this.img;
+		  picture.src = 'data:image/jpeg;base64,' + imageData;
 		  this.pictureContext.clearRect(0, 0, this.pictureCanvas.width, this.pictureCanvas.height);
 		  // var context = this.pictureCanvas.getContext("2d");
 		  this.pictureContext.drawImage(picture, 0, 0);
@@ -160,6 +200,7 @@ export class TakePicturePage {
 		      if (rect.width > 110 && rect.height > 110) {
 			      this.colorblot = rect.color;
 				  this.colortest= this.colorblot+"";
+				  this.currentColor = this.colorblot;
 				  // console.log(this.colorblot);
 		          // console.log("Hey");
 		      }

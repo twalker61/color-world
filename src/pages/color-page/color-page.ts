@@ -26,10 +26,17 @@ private _CONTEXT  : any;
  private y : any;
  mode:string="";
   mainImg:string="../assets/imgs/splash_screen.png";
+  color_R;
+  color_G;
+  color_B;
   constructor(public navCtrl: NavController, public navParams: NavParams, private element: ElementRef, private cameraPreview: CameraPreview, platform: Platform) {
     this.mainImg = navParams.get("img");
     this.mode = navParams.get("mode");
-    console.log(this.mainImg);
+    //console.log(this.mainImg);
+    this.color_R = navParams.get("r");
+    this.color_G = navParams.get("g");
+    this.color_B = navParams.get("b");
+    console.log("R value: " + this.color_R);
 
     platform.ready().then((readySource => {
       this.width = platform.width();
@@ -76,7 +83,7 @@ private _CONTEXT  : any;
   }
 
   camera() {
-    this.navCtrl.push(TakePicturePage, {img: this.mainImg});
+    this.navCtrl.push(TakePicturePage, {img: this.mainImg, mode: this.mode});
   }
 
   goBack() {
@@ -125,7 +132,10 @@ private _CONTEXT  : any;
   }
 
   click(event) {
-    this.floodFill(this._CANVAS, event.clientX, event.clientY, 175,238,238);
+    if (typeof this.color_R !== 'undefined') {
+      this.floodFill(this._CANVAS, event.clientX, event.clientY, this.color_R,this.color_G,this.color_B);
+    }
+    
   }
 
   floodFill(canvas, x, y, r, g, b) {
