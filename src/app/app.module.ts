@@ -11,6 +11,7 @@ import { ListPage } from '../pages/list/list';
 import {PickPicturePage} from '../pages/pick-picture/pick-picture';
 import {ColorPage} from '../pages/color-page/color-page'
 import {TakePicturePage} from '../pages/take-picture/take-picture'
+import {PickStoryPage} from '../pages/pick-story/pick-story'
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -25,6 +26,7 @@ import { CameraPreview} from '@ionic-native/camera-preview';
     PickPicturePage,
     ColorPage,
     TakePicturePage,
+    PickStoryPage,
   ],
   imports: [
     BrowserModule,
@@ -41,6 +43,7 @@ import { CameraPreview} from '@ionic-native/camera-preview';
     PickPicturePage,
     ColorPage,
     TakePicturePage,
+    PickStoryPage,
   ],
   providers: [
     StatusBar,

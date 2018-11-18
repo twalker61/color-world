@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
-import { PickPicturePage } from '../pick-picture/pick-picture';
+import { PickStoryPage } from '../pick-story/pick-story';
 
 @Component({
   selector: 'page-list',
@@ -17,6 +17,6 @@ export class ListPage {
 
   chooseMode(event) {
   	let choice = event.srcElement.id;
-    this.navCtrl.push(PickPicturePage, {mode: choice});
+    this.navCtrl.push(PickStoryPage, {mode: choice});
   }
 }

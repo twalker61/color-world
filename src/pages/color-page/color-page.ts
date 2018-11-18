@@ -25,6 +25,7 @@ private _CONTEXT  : any;
  private x : any;
  private y : any;
  mode:string="";
+ story;
   mainImg:string="../assets/imgs/splash_screen.png";
   color_R;
   color_G;
@@ -32,6 +33,7 @@ private _CONTEXT  : any;
   constructor(public navCtrl: NavController, public navParams: NavParams, private element: ElementRef, private cameraPreview: CameraPreview, platform: Platform) {
     this.mainImg = navParams.get("img");
     this.mode = navParams.get("mode");
+    this.story = navParams.get("collection");
     //console.log(this.mainImg);
     this.color_R = navParams.get("r");
     this.color_G = navParams.get("g");
@@ -83,11 +85,11 @@ private _CONTEXT  : any;
   }
 
   camera() {
-    this.navCtrl.push(TakePicturePage, {img: this.mainImg, mode: this.mode});
+    this.navCtrl.push(TakePicturePage, {img: this.mainImg, mode: this.mode, collection:this.story});
   }
 
   goBack() {
-    this.navCtrl.push(PickPicturePage, {mode: this.mode});
+    this.navCtrl.push(PickPicturePage, {mode: this.mode, collection:this.story});
   }
 
   getPixel(pixelData, x, y) {

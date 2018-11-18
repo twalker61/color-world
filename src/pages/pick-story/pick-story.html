@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title>Pick a Story</ion-title>
+  </ion-navbar>
+</ion-header>
+<div id="wrapper">
+<p id="button-wrapper">
+	<button ion-button (click)="goToHome()">Home</button>
+</p>
+<ion-grid>
+	<ion-row>
+		<ion-col>
+			<div class="box">
+			<img id = "animals" src="../assets/imgs/SampleImageCollections/animals/tiger.png" (click) = "goToPictures($event)"/>
+			<p class="label">Animals</p>
+			</div>
+		</ion-col>
+		<ion-col>
+			<img id = "birds" src="../assets/imgs/SampleImageCollections/birds/tweety.png" (click) = "goToPictures($event)"/>
+			<p>Birds</p>
+		</ion-col>
+	</ion-row>
+	<ion-row>
+		<ion-col>
+			<img id = "disney" src="../assets/imgs/SampleImageCollections/disney/flounder.png" (click) = "goToPictures($event)"/>
+			<p>Disney</p>
+		</ion-col>
+		<ion-col>
+			<img id = "pokemon" src="../assets/imgs/SampleImageCollections/Pokemon/vulpix.png" (click) = "goToPictures($event)"/>
+			<p>Pokemon</p>
+		</ion-col>
+	</ion-row>
+</ion-grid>
+</div>
