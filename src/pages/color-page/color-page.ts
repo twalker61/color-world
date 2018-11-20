@@ -41,7 +41,7 @@ img = new Image();
       this.storage.ready().then(() => {
         this.storage.get(STORAGE_KEY).then(data => {
           if (data != undefined) {
-            this.mainImg = data;
+            this.mainImg = URL.createObjectURL(data);
             this.ionViewDidLoad();
           }
         });
@@ -103,6 +103,8 @@ img = new Image();
   }
 
   camera() {
+  //app is crashing here when most of image is colored in
+  //something wrong in saveCanvasImage flow...
     this.saveCanvasImage();
     this.navCtrl.push(TakePicturePage, {/*img: this.mainImg,*/ mode: this.mode, collection:this.story});
   }
@@ -114,12 +116,38 @@ img = new Image();
 
   saveCanvasImage() {
   var dataUrl = this._CANVAS.toDataURL();
-  this.storeImage(dataUrl);
+  var data = dataUrl.split(',')[1];
+  let blob = this.b64toBlob(data, 'image/png');
+  this.storeImage(blob);
   
 }
 
-storeImage(imageName) {
-  this.storage.set(STORAGE_KEY, imageName);
+b64toBlob(b64Data, contentType) {
+
+  contentType = contentType || '';
+  var sliceSize = 512;
+  var byteCharacters = atob(b64Data, 'image/png');
+  var byteArrays = [];
+ 
+  for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+    var slice = byteCharacters.slice(offset, offset + sliceSize);
+ 
+    var byteNumbers = new Array(slice.length);
+    for (var i = 0; i < slice.length; i++) {
+      byteNumbers[i] = slice.charCodeAt(i);
+    }
+ 
+    var byteArray = new Uint8Array(byteNumbers);
+ 
+    byteArrays.push(byteArray);
+  }
+ 
+  var blob = new Blob(byteArrays, { type: contentType });
+  return blob;
+}
+
+storeImage(imageBlob) {
+  this.storage.set(STORAGE_KEY, imageBlob);
 }
 
   getPixel(pixelData, x, y) {
