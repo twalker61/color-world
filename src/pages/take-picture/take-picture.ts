@@ -52,7 +52,7 @@ export class TakePicturePage {
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private cameraPreview: CameraPreview) {
 		this.startCamera();
-		this.img = navParams.get("img");
+		//this.img = navParams.get("img");
 		this.mode = navParams.get("mode");
 		this.story = navParams.get("collection");
 	}
@@ -105,7 +105,7 @@ export class TakePicturePage {
 			this.color_G =0;
 			this.color_B =211;
 		}
-		this.navCtrl.push(ColorPage, {img: this.img, r: this.color_R, g: this.color_G, b: this.color_B, mode: this.mode, collection:this.story});
+		this.navCtrl.push(ColorPage, {/*img: this.img,*/ r: this.color_R, g: this.color_G, b: this.color_B, mode: this.mode, collection:this.story});
 	}
 
 	ionViewDidLoad() {
@@ -211,7 +211,7 @@ export class TakePicturePage {
 		  });
 		}, (err) => {
 		  console.log(err);
-		  this.img = 'assets/img/test.jpg';
+		  //this.img = 'assets/img/test.jpg';
 		});
 		// this.takePicture();
 	}

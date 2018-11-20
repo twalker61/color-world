@@ -2,13 +2,18 @@ import { Component, ElementRef, ViewChild} from '@angular/core';
 
 import {Platform} from 'ionic-angular';
 
-import { NavController, NavParams } from 'ionic-angular';
+//import { FirebaseService } from '../services/firebase.service';
+import { Storage } from '@ionic/storage';
+import { File } from '@ionic-native/file';
+
+import { NavController, NavParams, normalizeURL } from 'ionic-angular';
 
 import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
 
 import {TakePicturePage} from '../take-picture/take-picture'
 import {PickPicturePage} from '../pick-picture/pick-picture'
  
+ const STORAGE_KEY = 'PICTURE';
 
 @Component({
   selector: 'page-color',
@@ -19,7 +24,7 @@ export class ColorPage {
 @ViewChild('canvas') canvasEl : ElementRef;
 private _CANVAS  : any;
 private _CONTEXT  : any;
- img = new Image();
+img = new Image();
  private height : any;
  private width: any;
  private x : any;
@@ -30,15 +35,25 @@ private _CONTEXT  : any;
   color_R;
   color_G;
   color_B;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private element: ElementRef, private cameraPreview: CameraPreview, platform: Platform) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private element: ElementRef, private cameraPreview: CameraPreview, platform: Platform, private file: File, private storage: Storage) {
     this.mainImg = navParams.get("img");
+    if (this.mainImg == null) {
+      this.storage.ready().then(() => {
+        this.storage.get(STORAGE_KEY).then(data => {
+          if (data != undefined) {
+            this.mainImg = data;
+            this.ionViewDidLoad();
+          }
+        });
+      });
+    }
     this.mode = navParams.get("mode");
     this.story = navParams.get("collection");
     //console.log(this.mainImg);
     this.color_R = navParams.get("r");
     this.color_G = navParams.get("g");
     this.color_B = navParams.get("b");
-    console.log("R value: " + this.color_R);
+    //console.log("R value: " + this.color_R);
 
     platform.ready().then((readySource => {
       this.width = platform.width();
@@ -49,7 +64,7 @@ private _CONTEXT  : any;
 
   ionViewDidLoad() {
      this._CANVAS = this.canvasEl.nativeElement;
-     console.log(this.width);
+     //console.log(this.width);
      this._CANVAS.width = this.width;
      this._CANVAS.height = this.height;
      this.initialiseCanvas();
@@ -73,8 +88,11 @@ private _CONTEXT  : any;
           this.img.height = this.height;
           this.img.width = ratio * this.img.height;
         }
+        console.log("Image height: " + this.img.height);
         this._CONTEXT.drawImage(this.img, 0, 0, this.img.width, this.img.height);
      };
+     //this.img.onerror = function() {console.log("Image failed!");};
+     //console.log("Main img: " + this.mainImg);
      this.img.src = this.mainImg;
   }
   initialiseCanvas() {
@@ -85,12 +103,24 @@ private _CONTEXT  : any;
   }
 
   camera() {
-    this.navCtrl.push(TakePicturePage, {img: this.mainImg, mode: this.mode, collection:this.story});
+    this.saveCanvasImage();
+    this.navCtrl.push(TakePicturePage, {/*img: this.mainImg,*/ mode: this.mode, collection:this.story});
   }
 
   goBack() {
+    //this.saveCanvasImage();
     this.navCtrl.push(PickPicturePage, {mode: this.mode, collection:this.story});
   }
+
+  saveCanvasImage() {
+  var dataUrl = this._CANVAS.toDataURL();
+  this.storeImage(dataUrl);
+  
+}
+
+storeImage(imageName) {
+  this.storage.set(STORAGE_KEY, imageName);
+}
 
   getPixel(pixelData, x, y) {
       if (x < 0 || y < 0 || x >= pixelData.width || y >= pixelData.height) {
@@ -150,9 +180,9 @@ private _CONTEXT  : any;
       var replacementColor = this.convertColor(r,g,b);
       //console.log(replacementColor);
       var firstColor = this.getPixel(pixelData, x, y);
-      console.log(this.getR(firstColor));
-      console.log(this.getG(firstColor));
-      console.log(this.getB(firstColor));
+      //console.log(this.getR(firstColor));
+      //console.log(this.getG(firstColor));
+      //console.log(this.getB(firstColor));
       var done = [];
       for (var i = 0; i < canvas.width; i++) {
           done[i] = [];

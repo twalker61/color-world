@@ -16,6 +16,8 @@ import {PickStoryPage} from '../pages/pick-story/pick-story'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CameraPreview} from '@ionic-native/camera-preview';
+import { IonicStorageModule } from '@ionic/storage';
+import { File } from '@ionic-native/file';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,8 @@ import { CameraPreview} from '@ionic-native/camera-preview';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpClientModule,
-    AngularSvgIconModule
+    AngularSvgIconModule,
+    IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -49,7 +52,8 @@ import { CameraPreview} from '@ionic-native/camera-preview';
     StatusBar,
     SplashScreen,
     CameraPreview,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    File
   ]
 })
 export class AppModule {}
