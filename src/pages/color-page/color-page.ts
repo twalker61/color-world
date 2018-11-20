@@ -39,8 +39,8 @@ private _CONTEXT  : any;
     console.log("R value: " + this.color_R);
 
     platform.ready().then((readySource => {
-      this.width = platform.width();
-      this.height = platform.height();
+      this.width = platform.width() - 60;
+      this.height = platform.height() - 120;
     }))
     
   }
