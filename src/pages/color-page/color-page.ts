@@ -147,6 +147,7 @@ b64toBlob(b64Data, contentType) {
 }
 
 storeImage(imageBlob) {
+  //TODO: store by picture name instead of generic storage key
   this.storage.set(STORAGE_KEY, imageBlob);
 }
 
@@ -179,7 +180,7 @@ storeImage(imageBlob) {
   }
 
   isWhite(color) {
-    return (this.getR(color) > 240 && this.getG(color) > 240 && this.getB(color) > 240)
+    return (this.getR(color) > 0 && this.getG(color) > 0 && this.getB(color) > 0)
   }
 
   setPixel(pixelData, x, y, color) {
