@@ -85,5 +85,6 @@
     <plugin name="cordova-plugin-camera-preview" spec="https://github.com/cordova-plugin-camera-preview/cordova-plugin-camera-preview.git">
         <variable name="ANDROID_SUPPORT_LIBRARY_VERSION" value="25+" />
     </plugin>
+    <allow-navigation href="http://192.168.1.72:8100" sessionid="584dcf88" />
     <engine name="android" spec="7.1.2" />
 </widget>

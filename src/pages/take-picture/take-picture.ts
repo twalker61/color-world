@@ -28,6 +28,9 @@ export class TakePicturePage {
 	selectedColor:string;
 	colortest="start";
 	isOn:boolean = false;
+	colorSelectionStatus: string = "notSelected";
+	findingStatus:string = "";
+	imageSource:string = "";
 	colors = ['cyan', 'darkgrey', 'pink', 'yellow', 'orange', 'red', 'blue', 'green', 'purple'];
 	tracker;
 	button;
@@ -37,7 +40,7 @@ export class TakePicturePage {
 	color_R;
 	color_G;
 	color_B;
-	automaticColorPicker = window.setInterval(() => this.takePicture(), 900);
+	// automaticColorPicker = window.setInterval(() => this.takePicture(), 900);
 	cameraPreviewOpts: CameraPreviewOptions = {
 	      x: 10,
 	      y: 100,
@@ -64,7 +67,7 @@ export class TakePicturePage {
 	}
 
 	selectColor() {
-		this.colorblot = "#FFFFFF";
+		// this.colorblot = "#FFFFFF";
 
 		//this.cameraPreview.stopCamera();
 		console.log("current color: " + this.currentColor);
@@ -113,6 +116,7 @@ export class TakePicturePage {
 		this.button = document.getElementById("selectColorButton");
 		this.pictureCanvas = document.getElementById("pictureCanvas");
 		this.pictureContext = this.pictureCanvas.getContext("2d");
+		this.pictureContext.globalAlpha = 0;
 	}
 
 	ionViewDidEnter() {
@@ -129,6 +133,7 @@ export class TakePicturePage {
 	   if(this._CANVAS.getContext)
 	   {
 	      this._CONTEXT = this._CANVAS.getContext('2d');
+		  this._CONTEXT.globalAlpha = 0;
 	      this.colortest="canvas initialized";
 	   }
 	}
@@ -137,47 +142,16 @@ export class TakePicturePage {
 	this.colortest="begin colorcamera"
 	console.log(this._CONTEXT);
 	this.colortest=this._CONTEXT+"";
-
-	  // let tracker = new tracking.ColorTracker(['cyan', 'darkgrey', 'pink', 'yellow', 'orange', 'red', 'blue', 'green', 'purple']);
-	  // this.colortest=tracker.colors+"";
-	  // console.log(tracker);
-	  //camera == true
-	  // this.trackerTask = tracking.track('#video', tracker, {
-	  //   camera: true
-	  // });
-	  // this.colortest=" "+this.trackerTask.running_;
-	  // console.log(this.trackerTask);
-
-
-	  // tracker.on('track', (event) => {
-	  //   this._CONTEXT.clearRect(0, 0, this._CANVAS.width, this._CANVAS.height);
-	  //   //this.colortest="inside tracker.on";
-	  //   //this.colortest=event.data+"";
-	  //   console.log(event.data);
-	  //   this.colorblot=event.data[0].color;
-	  //   this.colortest=this.colorblot+"";
-	  //   event.data.forEach((rect) => {
-	  //   	this.colorblot = rect.color;
-	  //   	//this.colortest = rect.color + "";
-	  //       //console.log(rect.color);
-	  //     if (rect.width > 110 && rect.height > 110 && rect.x > (this._CANVAS.width / 3) && rect.x < ((this._CANVAS.width / 3) + 300) && rect.y > (this._CANVAS.height / 3) && rect.y < ((this._CANVAS.height / 3) + 300)) {
-	        
-	  //         console.log("Hey");
-	  //     }
-	  //   });
-
-	  // });
-
 	}
 
 	takePicture() {
 		// take a picture
-		// console.log("Took Picture!");
+		this.findingStatus = "finding";
 		this.cameraPreview.takePicture(this.cameraPreviewOpts).then((imageData) => {
-		  //this.img = 'data:image/jpeg;base64,' + imageData;
 		  // making a canvas
 		  var picture = new Image(this._CANVAS.width, this._CANVAS.height);
 		  picture.src = 'data:image/jpeg;base64,' + imageData;
+		  this.imageSource = picture.src;
 		  this.pictureContext.clearRect(0, 0, this.pictureCanvas.width, this.pictureCanvas.height);
 		  // var context = this.pictureCanvas.getContext("2d");
 		  this.pictureContext.drawImage(picture, 0, 0);
@@ -185,13 +159,8 @@ export class TakePicturePage {
 
 		  this.tracker.on('track', (event) => {
 		    this._CONTEXT.clearRect(0, 0, this._CANVAS.width, this._CANVAS.height);
-		    //this.colortest="inside tracker.on";
-		    //this.colortest=event.data+"";
 		    // console.log(event.data);
 		    console.log("Took Picture!");
-		    // console.log(this.colorblot);
-		    // this.colorblot=event.data[0].color;
-		    // this.colortest=this.colorblot+"";
 		    event.data.forEach((rect) => {
 		    	// this.colorblot = rect.color;
 				// this.button.setAttribute("color", rect.color);
@@ -203,17 +172,24 @@ export class TakePicturePage {
 			      this.colorblot = rect.color;
 				  this.colortest= this.colorblot+"";
 				  this.currentColor = this.colorblot;
-				  // console.log(this.colorblot);
-		          // console.log("Hey");
+				  this.findingStatus = "found";
 		      }
 		    });
 
 		  });
+		  this.colorSelectionStatus = "selected";
 		}, (err) => {
 		  console.log(err);
 		  this.img = 'assets/img/test.jpg';
 		});
 		// this.takePicture();
+	}
+
+	clearColor() {
+		this.colorSelectionStatus = "notSelected";
+		this.colorblot = "#FFFFFF";
+		this.findingStatus = "";
+		this.imageSource = "";
 	}
 
 	ionViewWillLeave() {
