@@ -22,7 +22,9 @@ export class TakePicturePage {
 	  private _CONTEXT : any;
 	img:string="";
 	mode;
-	story;
+	//story;
+	collection;
+	saveKey;
 	colorblot:string="#000000";
 	trackerTask;
 	selectedColor:string;
@@ -54,7 +56,10 @@ export class TakePicturePage {
 		this.startCamera();
 		//this.img = navParams.get("img");
 		this.mode = navParams.get("mode");
-		this.story = navParams.get("collection");
+		//this.story = navParams.get("collection");
+		this.collection = navParams.get("array");
+		this.saveKey = navParams.get("saveKey");
+		//console.log("Take Picture constructor saveKey: "+this.saveKey);
 	}
 
 	startCamera() {
@@ -105,7 +110,7 @@ export class TakePicturePage {
 			this.color_G =0;
 			this.color_B =211;
 		}
-		this.navCtrl.push(ColorPage, {/*img: this.img,*/ r: this.color_R, g: this.color_G, b: this.color_B, mode: this.mode, collection:this.story});
+		this.navCtrl.push(ColorPage, {/*img: this.img,*/ r: this.color_R, g: this.color_G, b: this.color_B, mode: this.mode, array:this.collection, saveKey:this.saveKey /*collection:this.story*/});
 	}
 
 	ionViewDidLoad() {
@@ -135,7 +140,7 @@ export class TakePicturePage {
 
 	colorCamera() {
 	this.colortest="begin colorcamera"
-	console.log(this._CONTEXT);
+	//console.log(this._CONTEXT);
 	this.colortest=this._CONTEXT+"";
 
 	  // let tracker = new tracking.ColorTracker(['cyan', 'darkgrey', 'pink', 'yellow', 'orange', 'red', 'blue', 'green', 'purple']);

@@ -19,45 +19,7 @@ export class PickPicturePage {
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.mode = navParams.get('mode');
     this.story =navParams.get('collection');
-
-    if (this.story == "animals") {
-
-      this.images[0]="../assets/imgs/SampleImageCollections/animals/fish.png";
-      this.images[1]="../assets/imgs/SampleImageCollections/animals/hippo.png";
-      this.images[2]="../assets/imgs/SampleImageCollections/animals/monkey.png";
-      this.images[3]="../assets/imgs/SampleImageCollections/animals/snake.png";
-      this.images[4]="../assets/imgs/SampleImageCollections/animals/tiger.png";
-      this.images[5]="../assets/imgs/SampleImageCollections/animals/turtle.png";
-      this.images[6]="../assets/imgs/SampleImageCollections/animals/whale.png";
-      this.images[7]="../assets/imgs/SampleImageCollections/animals/zoo.png";
-    
-    } else if (this.story == "birds") {
-      
-      this.images[0]="../assets/imgs/SampleImageCollections/birds/angrybirds.png";
-      this.images[1]="../assets/imgs/SampleImageCollections/birds/lovebirds.png";
-      this.images[2]="../assets/imgs/SampleImageCollections/birds/parrot.png";
-      this.images[3]="../assets/imgs/SampleImageCollections/birds/singing.png";
-      this.images[4]="../assets/imgs/SampleImageCollections/birds/toucan.png";
-      this.images[5]="../assets/imgs/SampleImageCollections/birds/tweety.png";
-
-    } else if (this.story == "disney") {
-
-      this.images[0]="../assets/imgs/SampleImageCollections/disney/ariel.png";
-      this.images[1]="../assets/imgs/SampleImageCollections/disney/ducklings.png";
-      this.images[2]="../assets/imgs/SampleImageCollections/disney/flounder.png";
-      this.images[3]="../assets/imgs/SampleImageCollections/disney/genie.png";
-      this.images[4]="../assets/imgs/SampleImageCollections/disney/mylittlepony.png";
-      this.images[5]="../assets/imgs/SampleImageCollections/disney/youngdaffy.png";
-
-    } else {
-
-      this.images[0]="../assets/imgs/SampleImageCollections/Pokemon/bulbasaur.png";
-      this.images[1]="../assets/imgs/SampleImageCollections/Pokemon/charmander.png";
-      this.images[2]="../assets/imgs/SampleImageCollections/Pokemon/pikachu.png";
-      this.images[3]="../assets/imgs/SampleImageCollections/Pokemon/snorlax.png";
-      this.images[4]="../assets/imgs/SampleImageCollections/Pokemon/starters.png";
-      this.images[5]="../assets/imgs/SampleImageCollections/Pokemon/vulpix.png";
-    }
+    this.images = navParams.get('array');
 
     //create grid for ion-grid to display images flexibly
     this.grid = Array(Math.ceil(this.images.length/3));
@@ -66,13 +28,13 @@ export class PickPicturePage {
     for (let i = 0; i < this.images.length; i+=3) {
       this.grid[rowNum] = Array(3);
       if (this.images[i]) {
-        this.grid[rowNum][0] = this.images[i];
+        this.grid[rowNum][0] = this.images[i].src;
       }
       if (this.images[i+1]) {
-        this.grid[rowNum][1] = this.images[i+1];
+        this.grid[rowNum][1] = this.images[i+1].src;
       }
       if (this.images[i+2]) {
-        this.grid[rowNum][2] = this.images[i+2];
+        this.grid[rowNum][2] = this.images[i+2].src;
       }
       rowNum++;
       
@@ -82,12 +44,28 @@ export class PickPicturePage {
   }
 
   startColoring(event) {
-  let pic = event.srcElement.src;
-  	if (this.mode == "opt1") {
-  		this.navCtrl.push(ColorPage, {img: pic, mode: this.mode, collection:this.story});
+  let transferImg = event.srcElement.src;
+  //console.log(transferImg);
+  let pic = "../"+event.srcElement.src.replace(event.srcElement.baseURI, "");
+  //console.log(event);
+  var i;
+  var id;
+  //console.log("pic: "+pic);
+  for (i = 0; i < this.images.length; i++) {
+    //console.log("this.images[i].src: "+this.images[i].src);
+    //console.log();
+    if (this.images[i].src == pic) {
+      //console.log("Index found: "+i);
+      id = this.images[i].id;
+    }
+  }
+  //console.log("Pick Picture id: "+id);
+  	/*if (this.mode == "opt1") {
+  		
   	} if (this.mode == "opt2") {
 
-  	}
+  	}*/
+    this.navCtrl.push(ColorPage, {img: pic, mode: this.mode, collection:this.story, array: this.images, saveKey: id});
   }
 
   goToHome() {

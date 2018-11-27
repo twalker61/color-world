@@ -13,7 +13,7 @@ import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, Camer
 import {TakePicturePage} from '../take-picture/take-picture'
 import {PickPicturePage} from '../pick-picture/pick-picture'
  
- const STORAGE_KEY = 'PICTURE';
+ //const STORAGE_KEY = 'PICTURE';
 
 @Component({
   selector: 'page-color',
@@ -25,41 +25,62 @@ export class ColorPage {
 private _CANVAS  : any;
 private _CONTEXT  : any;
 img = new Image();
+platform;
  private height : any;
  private width: any;
  private x : any;
  private y : any;
  mode:string="";
- story;
-  mainImg:string="../assets/imgs/splash_screen.png";
+ //story;
+ saveKey;
+ collection;
+  mainImg;
+  //:string="../assets/imgs/splash_screen.png"
   color_R;
   color_G;
   color_B;
   constructor(public navCtrl: NavController, public navParams: NavParams, private element: ElementRef, private cameraPreview: CameraPreview, platform: Platform, private file: File, private storage: Storage) {
-    this.mainImg = navParams.get("img");
-    if (this.mainImg == null) {
+    //this.mainImg = navParams.get("img");
+    this.saveKey = navParams.get("saveKey");
+    //console.log("Color Page constructor saveKey: "+this.saveKey);
+    this.collection = navParams.get("array");
+    this.platform = platform;
+    if (true) {
       this.storage.ready().then(() => {
-        this.storage.get(STORAGE_KEY).then(data => {
+        this.storage.get(this.saveKey).then(data => {
+          //console.log("data: " + data);
           if (data != undefined) {
             this.mainImg = URL.createObjectURL(data);
-            this.ionViewDidLoad();
+          } else {
+
+            this.mainImg = navParams.get("img");
+            //console.log(navParams.get("img"));
           }
+          
+        }).then(this.loadPlatform()).then(() => {
+          this.ionViewDidLoad();
         });
       });
     }
+    //console.log("Reached");
     this.mode = navParams.get("mode");
-    this.story = navParams.get("collection");
+    //this.story = navParams.get("collection");
     //console.log(this.mainImg);
     this.color_R = navParams.get("r");
     this.color_G = navParams.get("g");
     this.color_B = navParams.get("b");
     //console.log("R value: " + this.color_R);
 
-    platform.ready().then((readySource => {
-      this.width = platform.width();
-      this.height = platform.height();
-    }))
     
+    
+  }
+
+  loadPlatform() {
+    this.platform.ready().then((readySource => {
+      this.width = this.platform.width();
+      this.height = this.platform.height();
+      console.log("Platform ready");
+    }))
   }
 
   ionViewDidLoad() {
@@ -68,32 +89,45 @@ img = new Image();
      this._CANVAS.width = this.width;
      this._CANVAS.height = this.height;
      this.initialiseCanvas();
+
      this.img.onload = () => {
+        console.log("Width 1: " + this.img.width);
+        console.log("Height 1: " + this.img.height);
         //let pixelData = this._CONTEXT.getImageData(this.img.x, this.img.y, this.img.width, this.img.height);
         if (this.img.height > this.img.width) {
           var ratio = this.img.width/this.img.height;
           this.img.height = this.height;
           this.img.width = ratio * this.img.height;
+          console.log("If one");
         } else {
           var ratio = this.img.height/this.img.width;
           this.img.width = this.width;
           this.img.height = ratio * this.img.width;
+          console.log("If two");
         }
+        console.log("Width 2: " + this.img.width);
+        console.log("Height 2: " + this.img.height);
         if (this.img.width > this.width) {
           var ratio = this.img.height/this.img.width;
           this.img.width = this.width;
           this.img.height = ratio * this.img.width;
+          console.log("If three");
         } else if (this.img.height > this.height) {
           var ratio = this.img.width/this.img.height;
           this.img.height = this.height;
           this.img.width = ratio * this.img.height;
+          console.log("If four");
         }
-        console.log("Image height: " + this.img.height);
+        console.log("Width 3: " + this.img.width);
+        console.log("Height 3: " + this.img.height);
+        //console.log("Image height: " + this.img.height);
         this._CONTEXT.drawImage(this.img, 0, 0, this.img.width, this.img.height);
      };
      //this.img.onerror = function() {console.log("Image failed!");};
      //console.log("Main img: " + this.mainImg);
      this.img.src = this.mainImg;
+     this.img.alt = this.saveKey;
+     //console.log(this.img.src);
   }
   initialiseCanvas() {
      if(this._CANVAS.getContext)
@@ -106,12 +140,13 @@ img = new Image();
   //app is crashing here when most of image is colored in
   //something wrong in saveCanvasImage flow...
     this.saveCanvasImage();
-    this.navCtrl.push(TakePicturePage, {/*img: this.mainImg,*/ mode: this.mode, collection:this.story});
-  }
+    //console.log("camera() saveKey: "+this.saveKey);
+    this.navCtrl.push(TakePicturePage, {/*img: this.mainImg,*/ mode: this.mode, array:this.collection, saveKey: this.saveKey /*collection:this.story*/});
+  } 
 
   goBack() {
-    //this.saveCanvasImage();
-    this.navCtrl.push(PickPicturePage, {mode: this.mode, collection:this.story});
+    this.saveCanvasImage();
+    this.navCtrl.push(PickPicturePage, {mode: this.mode, array:this.collection});
   }
 
   saveCanvasImage() {
@@ -126,7 +161,7 @@ b64toBlob(b64Data, contentType) {
 
   contentType = contentType || '';
   var sliceSize = 512;
-  var byteCharacters = atob(b64Data, 'image/png');
+  var byteCharacters = atob(b64Data);
   var byteArrays = [];
  
   for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
@@ -148,7 +183,7 @@ b64toBlob(b64Data, contentType) {
 
 storeImage(imageBlob) {
   //TODO: store by picture name instead of generic storage key
-  this.storage.set(STORAGE_KEY, imageBlob);
+  this.storage.set(this.saveKey, imageBlob);
 }
 
   getPixel(pixelData, x, y) {
@@ -180,7 +215,7 @@ storeImage(imageBlob) {
   }
 
   isWhite(color) {
-    return (this.getR(color) > 0 && this.getG(color) > 0 && this.getB(color) > 0)
+    return (this.getR(color) > 30 && this.getG(color) > 30 && this.getB(color) > 30)
   }
 
   setPixel(pixelData, x, y, color) {
@@ -197,6 +232,18 @@ storeImage(imageBlob) {
       this.floodFill(this._CANVAS, event.clientX, event.clientY, this.color_R,this.color_G,this.color_B);
     }
     
+  }
+
+  clear() {
+    var i;
+    for (i = 0; i < this.collection.length; i++) {
+      if (this.saveKey == this.collection[i].id) {
+        this.mainImg = this.collection[i].src;
+        this.loadPlatform();
+        this.ionViewDidLoad();
+      }
+      this.saveCanvasImage();
+    }
   }
 
   floodFill(canvas, x, y, r, g, b) {
