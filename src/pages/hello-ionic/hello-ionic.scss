@@ -1,17 +1,31 @@
 page-hello-ionic {
-	
-}
+	#start-title {
+		padding-top: 6vw;
+		padding-bottom: 12vw;
+	}
 
-.splash {
-	background-image: url('../assets/imgs/splash_screen.png');
-	background-repeat: no-repeat;
-	background-size:cover;
-}
+	.splash {
+		background-image: url('../assets/imgs/splash_screen.png');
+		background-repeat: no-repeat;
+		background-size:cover;
+	}
 
-#wrapper {
-	height: 100%;
-	width: 100%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+	#wrapper {
+		width: 100%;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		float: none;
+	}
+
+	#start-button {
+		display: inline-block;
+		height: 20vw;
+		width: 20vw;
+		border-radius: 50%;
+	}
+
+	ion-icon {
+		font-size: 14vw !important;
+	}
 }

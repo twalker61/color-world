@@ -14,19 +14,19 @@
 			</svg> -->
 			<ion-fab center bottom *ngSwitchCase="'notSelected'">
 			<!-- <button ion-button id="selectColorButton" (click) = "selectColor()" [style.backgroundColor]="colorblot"> Select Color </button> -->
-				<button ion-fab id="selectColorButton" (click) = "takePicture()"> <ion-icon name="search"></ion-icon> </button>
+				<button ion-fab id="selectColorButton" class="small-round-button" (click) = "takePicture()"> <ion-icon name="search"></ion-icon> </button>
 				
 			</ion-fab>
 
 			<div *ngSwitchCase="'selected'">
 				<ion-fab left bottom>
 				<!-- <button ion-button id="selectColorButton" (click) = "selectColor()" [style.backgroundColor]="colorblot"> Select Color </button> -->
-					<button ion-fab id="cancelColorButton" (click) = "clearColor()" style="border: red"> <ion-icon name="close"></ion-icon> </button>
+					<button ion-fab id="cancelColorButton" class="small-round-button" (click) = "clearColor()" style="border: red"> <ion-icon name="close"></ion-icon> </button>
 				</ion-fab>
 
 				<ion-fab right bottom>
 				<!-- <button ion-button id="selectColorButton" (click) = "selectColor()" [style.backgroundColor]="colorblot"> Select Color </button> -->
-					<button ion-fab id="confirmColorButton" (click) = "selectColor()" [style.backgroundColor]="colorblot"> <ion-icon name="checkmark"></ion-icon> </button>
+					<button ion-fab id="confirmColorButton" class="small-round-button" (click) = "selectColor()" [style.backgroundColor]="colorblot"> <ion-icon name="checkmark"></ion-icon> </button>
 				</ion-fab>
 			</div>
 		</div>

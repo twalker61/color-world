@@ -1,19 +1,21 @@
-<ion-header>
+<!-- <ion-header>
   <ion-navbar>
     <ion-title>Pick a Story</ion-title>
   </ion-navbar>
-</ion-header>
+</ion-header> -->
+<ion-content>
 <div id="wrapper">
-<p id="button-wrapper">
-	<button ion-button (click)="goToHome()">Home</button>
-</p>
+<h2>
+	PICK A COLORING BOOK
+</h2>
+<!-- <p id="button-wrapper">
+	<button ion-button (click)="goToHome()"><ion-icon name="arrow-back"></ion-icon></button>
+</p> -->
 <ion-grid>
 	<ion-row>
 		<ion-col>
-			<div class="box">
 			<img id = "animals" src="../assets/imgs/SampleImageCollections/animals/tiger.png" (click) = "goToPictures($event)"/>
 			<p class="label">Animals</p>
-			</div>
 		</ion-col>
 		<ion-col>
 			<img id = "birds" src="../assets/imgs/SampleImageCollections/birds/tweety.png" (click) = "goToPictures($event)"/>
@@ -32,3 +34,4 @@
 	</ion-row>
 </ion-grid>
 </div>
+</ion-content>

@@ -1,16 +1,14 @@
-#wrapper {
-	display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
+page-color {
+	#wrapper {
+		display: flex;
+	    justify-content: center;
+	    align-items: center;
+	    overflow: hidden;
+	}
 
-#picture {
-	flex-shrink: 0;
-    width: 100%;
-    height: 80%;
-}
-
-p {
-	margin-top: 75px;
+	#picture {
+		flex-shrink: 0;
+	    width: 100%;
+	    height: 80%;
+	}
 }

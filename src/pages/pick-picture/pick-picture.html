@@ -1,17 +1,20 @@
-<ion-header>
+<!-- <ion-header>
   <ion-navbar>
     <ion-title>Pick a Picture</ion-title>
   </ion-navbar>
-</ion-header>
-<div id="wrapper">
-<p id="button-wrapper">
-	<button ion-button (click)="goToHome()">Home</button>
-</p>
-<ion-grid >
-    <ion-row *ngFor="let row of grid" >
-      <ion-col *ngFor="let img of row" >
-        <img [src]="img" (click) = "startColoring($event)"/>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</div>
+</ion-header> -->
+<ion-content>
+  <div id="wrapper">
+  <h2>
+    <button ion-button class="small-round-button" (click)="goToHome()"><ion-icon name="arrow-back"></ion-icon></button>
+    PICK A PICTURE
+  </h2>
+  <ion-grid >
+      <ion-row *ngFor="let row of grid" >
+        <ion-col *ngFor="let img of row" >
+          <img [src]="img" (click) = "startColoring($event)"/>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+</ion-content>

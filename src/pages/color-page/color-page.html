@@ -4,14 +4,19 @@
   </ion-navbar>
 </ion-header> -->
 
+<ion-content>
+	<div id = "wrapper">
+		<h2>
+			<button ion-button class="small-round-button" (click) = "goBack()"><ion-icon name="arrow-back"></ion-icon></button>
+			COLOR
+		</h2>
+		<!-- <img id ="picture" [src] = "mainImg"/> -->
+		<canvas #canvas (click) = "click($event)">
 
-<div id = "wrapper">
-	<p>
-		<button ion-button (click) = "camera()" id="camera-button">Camera?!</button>
-		<button ion-button (click) = "goBack()"> Back</button>
-	</p>
-	<!-- <img id ="picture" [src] = "mainImg"/> -->
-	<canvas #canvas (click) = "click($event)">
-
-	</canvas>
-</div>
+		</canvas>
+		
+		<p>
+			<button ion-button class="small-round-button" (click) = "camera()" id="camera-button"><ion-icon name="brush"></ion-icon></button>
+		</p>
+	</div>
+</ion-content>

@@ -42,8 +42,8 @@ private _CONTEXT  : any;
 
     platform.ready().then((readySource => {
       this.width = platform.width() - 60;
-      this.height = platform.height() - 120;
-    }))
+      this.height = platform.height();
+    }));
     
   }
 
@@ -73,6 +73,8 @@ private _CONTEXT  : any;
           this.img.height = this.height;
           this.img.width = ratio * this.img.height;
         }
+       this._CANVAS.width = this.img.width;
+       this._CANVAS.height = this.img.height;
         this._CONTEXT.drawImage(this.img, 0, 0, this.img.width, this.img.height);
      };
      this.img.src = this.mainImg;
