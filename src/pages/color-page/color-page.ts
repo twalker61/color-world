@@ -71,7 +71,14 @@ platform;
     this.color_B = navParams.get("b");
     //console.log("R value: " + this.color_R);
 
+<<<<<<< HEAD
     
+=======
+    platform.ready().then((readySource => {
+      this.width = platform.width() - 60;
+      this.height = platform.height() - 120;
+    }))
+>>>>>>> master
     
   }
 
