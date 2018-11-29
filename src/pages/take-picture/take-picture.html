@@ -5,7 +5,7 @@
 
 	<div id="wrapper">
 		<canvas #canvas></canvas>
-		<canvas id="pictureCanvas"></canvas>
+		<!-- <canvas id="pictureCanvas"></canvas> -->
 		
 		<!-- <video id="video" preload autoplay loop muted controls></video> -->
 
@@ -18,19 +18,19 @@
 			</svg> -->
 			<ion-fab center bottom *ngSwitchCase="'notSelected'">
 			<!-- <button ion-button id="selectColorButton" (click) = "selectColor()" [style.backgroundColor]="colorblot"> Select Color </button> -->
-				<button ion-fab id="selectColorButton" class="small-round-button" (click) = "takePicture()"> <ion-icon name="search"></ion-icon> </button>
+				<button ion-fab id="selectColorButton" class="large-round-button" (click) = "takePicture()"> <ion-icon name="search"></ion-icon> </button>
 				
 			</ion-fab>
 
 			<div *ngSwitchCase="'selected'">
 				<ion-fab left bottom>
 				<!-- <button ion-button id="selectColorButton" (click) = "selectColor()" [style.backgroundColor]="colorblot"> Select Color </button> -->
-					<button ion-fab id="cancelColorButton" class="small-round-button" (click) = "clearColor()" style="border: red"> <ion-icon name="close"></ion-icon> </button>
+					<button ion-fab id="cancelColorButton" class="large-round-button" (click) = "clearColor()" style="border: red"> <ion-icon name="close"></ion-icon> </button>
 				</ion-fab>
 
 				<ion-fab right bottom>
 				<!-- <button ion-button id="selectColorButton" (click) = "selectColor()" [style.backgroundColor]="colorblot"> Select Color </button> -->
-					<button ion-fab id="confirmColorButton" class="small-round-button" (click) = "selectColor()" [style.backgroundColor]="colorblot"> <ion-icon name="checkmark"></ion-icon> </button>
+					<button ion-fab id="confirmColorButton" class="large-round-button" (click) = "selectColor()" [style.backgroundColor]="colorblot"> <ion-icon name="checkmark"></ion-icon> </button>
 				</ion-fab>
 			</div>
 		</div>
@@ -42,8 +42,8 @@
 		<svg width="100%" height="100%" id="color-circle" xmlns="http://www.w3.org/2000/svg">
 		    <defs>
 		    </defs>
-		    <rect x="0" y="80%" width="100%" height="8%" fill="grey" opacity="10%"></rect>
-		    <text x="40%" y="85%" class="regular">Finding color...</text>
+		    <rect x="0" y="70%" width="100%" height="8%" fill="#A7DBD8" opacity="10%"></rect>
+		    <text font-size="12px" x="25%" y="75%" class="regular">Finding color...</text>
 		</svg>
 	</div>
 
@@ -51,9 +51,9 @@
 		<svg width="100%" height="100%" id="color-circle" xmlns="http://www.w3.org/2000/svg">
 		    <defs>
 		    </defs>
-		    <rect x="0" y="80%" width="100%" height="8%" fill="grey" opacity="10%"></rect>
-		    <circle id="color-blot" cx="57%" cy="84%" r="3%" [style.fill] = "colorblot" stroke-width="5" stroke="white"></circle>
-		    <text x="40%" y="85%" class="regular">I found </text>
+		    <rect x="0" y="70%" width="100%" height="8%" fill="#A7DBD8" opacity="10%"></rect>
+		    <circle id="color-blot" cx="57%" cy="74%" r="3%" [style.fill] = "colorblot" stroke-width="5" stroke="white"></circle>
+		    <text font-size="12px" x="40%" y="75%" class="regular">I found </text>
 		</svg>
 	</div>
 </div>

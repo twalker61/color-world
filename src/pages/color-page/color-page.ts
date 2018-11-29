@@ -8,8 +8,6 @@ import { File } from '@ionic-native/file';
 
 import { NavController, NavParams, normalizeURL } from 'ionic-angular';
 
-import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
-
 import {TakePicturePage} from '../take-picture/take-picture'
 import {PickPicturePage} from '../pick-picture/pick-picture'
  
@@ -33,7 +31,7 @@ platform;
  private y : any;
  mode:string="";
  //story;
- storage : Storage;
+ //storage : Storage;
  saveKey;
  collection;
   mainImg;
@@ -41,7 +39,7 @@ platform;
   color_R;
   color_G;
   color_B;
-  constructor(public navCtrl: NavController, public navParams: NavParams, private element: ElementRef, private cameraPreview: CameraPreview, platform: Platform, private file: File, private storage: Storage) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private element: ElementRef, platform: Platform, private file: File, private storage: Storage) {
     //this.mainImg = navParams.get("img");
     this.imgData = navParams.get("imgData");
     console.log("ColorPage imgData: "+this.imgData.width);
@@ -50,7 +48,7 @@ platform;
     //console.log("Color Page constructor saveKey: "+this.saveKey);
     this.collection = navParams.get("array");
     this.platform = platform;
-    this.storage = storage;
+    //this.storage = storage;
     if (true) {
       this.storage.ready().then(() => {
         this.storage.get(this.saveKey).then(data => {
