@@ -29,12 +29,18 @@ export class PickPicturePage {
       this.grid[rowNum] = Array(3);
       if (this.images[i]) {
         this.grid[rowNum][0] = this.images[i].src;
+      } else {
+        this.grid[rowNum][0] = "";
       }
       if (this.images[i+1]) {
         this.grid[rowNum][1] = this.images[i+1].src;
+      } else {
+        this.grid[rowNum][1] = "";
       }
       if (this.images[i+2]) {
         this.grid[rowNum][2] = this.images[i+2].src;
+      } else {
+        this.grid[rowNum][2] = "";
       }
       rowNum++;
       

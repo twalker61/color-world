@@ -12,7 +12,7 @@
   <ion-grid >
       <ion-row *ngFor="let row of grid" >
         <ion-col *ngFor="let img of row" >
-          <img [src]="img" (click) = "startColoring($event)"/>
+          <img [src]="img" alt = "" (click) = "startColoring($event)"/>
         </ion-col>
       </ion-row>
     </ion-grid>

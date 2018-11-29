@@ -33,6 +33,7 @@ platform;
  private y : any;
  mode:string="";
  //story;
+ storage : Storage;
  saveKey;
  collection;
   mainImg;
@@ -49,6 +50,7 @@ platform;
     //console.log("Color Page constructor saveKey: "+this.saveKey);
     this.collection = navParams.get("array");
     this.platform = platform;
+    this.storage = storage;
     if (true) {
       this.storage.ready().then(() => {
         this.storage.get(this.saveKey).then(data => {
@@ -186,6 +188,7 @@ platform;
   var dataUrl = this._CANVAS.toDataURL();
   var data = dataUrl.split(',')[1];
   let blob = this.b64toBlob(data, 'image/png');
+  console.log(blob);
   this.storeImage(blob);
   
 }
@@ -215,8 +218,16 @@ b64toBlob(b64Data, contentType) {
 }
 
 storeImage(imageBlob) {
-  //TODO: store by picture name instead of generic storage key
   this.storage.set(this.saveKey, imageBlob);
+  this.storage.get(this.saveKey).then(data => {
+          //console.log("data: " + data);
+          if (data != undefined) {
+            console.log("data defined");
+          } else {
+            console.log("data undefined");
+          }
+          
+        });
 }
 
   getPixel(pixelData, x, y) {
@@ -248,7 +259,7 @@ storeImage(imageBlob) {
   }
 
   isWhite(color) {
-    return (this.getR(color) > 240 && this.getG(color) > 240 && this.getB(color) > 240)
+    return (this.getR(color) > 100 && this.getG(color) > 100 && this.getB(color) > 100)
   }
 
   setPixel(pixelData, x, y, color) {

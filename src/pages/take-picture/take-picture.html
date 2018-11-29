@@ -1,10 +1,11 @@
 <ion-content class="page">
 <!-- <p [innerHTML] = "colortest"> </p> -->
 <!-- 	<div id="wrapper" [style.backgroundColor]="colorblot"> -->
-<canvas #canvas></canvas>
-<canvas id="pictureCanvas"></canvas>
+
 
 	<div id="wrapper">
+		<canvas #canvas></canvas>
+		<canvas id="pictureCanvas"></canvas>
 		
 		<!-- <video id="video" preload autoplay loop muted controls></video> -->
 
@@ -34,7 +35,7 @@
 			</div>
 		</div>
 	</div>
-
+</ion-content>
 
 <div [ngSwitch]="findingStatus">
 	<div id="color-indicator" class="overlay" *ngSwitchCase="'finding'">
@@ -56,7 +57,7 @@
 		</svg>
 	</div>
 </div>
-</ion-content>
+
 
 <!-- <ion-content center bottom>
 	<ion-fab>

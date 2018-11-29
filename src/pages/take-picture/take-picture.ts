@@ -47,7 +47,7 @@ export class TakePicturePage {
 	      x: 0,
 	      y: 0,
 	      width: (window.screen.width),
-	      height: (window.screen.height-150),
+	      height: (window.screen.height)-200,
 	      camera: 'rear',
 	      toBack: false,
 	      tapPhoto: true,
@@ -57,7 +57,7 @@ export class TakePicturePage {
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private cameraPreview: CameraPreview) {
 		//this.startCamera();
-		this.cameraPreview.stopCamera();
+		//this.cameraPreview.stopCamera();
 		this.cameraPreview.startCamera(this.cameraPreviewOpts);
 	    this.isOn = true;
 		//this.img = navParams.get("img");
