@@ -56,7 +56,7 @@ export class PickPicturePage {
     //console.log();
     if (this.images[i].src == pic) {
       //console.log("Index found: "+i);
-      id = this.images[i].id;
+      id = i;
     }
   }
   //console.log("Pick Picture id: "+id);
@@ -65,7 +65,8 @@ export class PickPicturePage {
   	} if (this.mode == "opt2") {
 
   	}*/
-    this.navCtrl.push(ColorPage, {img: pic, mode: this.mode, collection:this.story, array: this.images, saveKey: id});
+    console.log(id);
+    this.navCtrl.push(ColorPage, {img: pic, mode: this.mode, collection:this.story, array: this.images, imgData: this.images[id]});
   }
 
   goToHome() {

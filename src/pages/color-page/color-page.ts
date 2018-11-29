@@ -25,6 +25,7 @@ export class ColorPage {
 private _CANVAS  : any;
 private _CONTEXT  : any;
 img = new Image();
+imgData;
 platform;
  private height : any;
  private width: any;
@@ -41,7 +42,10 @@ platform;
   color_B;
   constructor(public navCtrl: NavController, public navParams: NavParams, private element: ElementRef, private cameraPreview: CameraPreview, platform: Platform, private file: File, private storage: Storage) {
     //this.mainImg = navParams.get("img");
-    this.saveKey = navParams.get("saveKey");
+    this.imgData = navParams.get("imgData");
+    console.log("ColorPage imgData: "+this.imgData.width);
+    this.saveKey = this.imgData.id;
+    console.log("saveKey: "+this.saveKey);
     //console.log("Color Page constructor saveKey: "+this.saveKey);
     this.collection = navParams.get("array");
     this.platform = platform;
@@ -51,17 +55,23 @@ platform;
           //console.log("data: " + data);
           if (data != undefined) {
             this.mainImg = URL.createObjectURL(data);
+            console.log("data defined");
           } else {
-
+            console.log("data undefined");
             this.mainImg = navParams.get("img");
             //console.log(navParams.get("img"));
           }
           
-        }).then(this.loadPlatform()).then(() => {
-          this.ionViewDidLoad();
+        }).then(() => {
+        console.log("Load platform");
+        this.loadPlatform()
+        }).then(() => {
+        console.log("Load View");
+        this.ionViewDidLoad()
         });
       });
     }
+    //console.log("mainImg: "+mainImg);
     //console.log("Reached");
     this.mode = navParams.get("mode");
     //this.story = navParams.get("collection");
@@ -81,50 +91,70 @@ platform;
   }
 
   ionViewDidLoad() {
-     this._CANVAS = this.canvasEl.nativeElement;
-     //console.log(this.width);
-     this._CANVAS.width = this.width;
-     this._CANVAS.height = this.height;
-     this.initialiseCanvas();
+    if (this.width != undefined && this.height != undefined) {
+      console.log(this.canvasEl.nativeElement);
+       this._CANVAS = this.canvasEl.nativeElement;
+       console.log(this._CANVAS);
+       console.log(this.width);
+       //console.log(this.width);
+       this._CANVAS.width = this.width;
+       this._CANVAS.height = this.height;
+       this.initialiseCanvas();
+       //console.log(this._CANVAS);
 
-     this.img.onload = () => {
-        console.log("Width 1: " + this.img.width);
-        console.log("Height 1: " + this.img.height);
-        //let pixelData = this._CONTEXT.getImageData(this.img.x, this.img.y, this.img.width, this.img.height);
-        if (this.img.height > this.img.width) {
-          var ratio = this.img.width/this.img.height;
-          this.img.height = this.height;
-          this.img.width = ratio * this.img.height;
-          console.log("If one");
-        } else {
-          var ratio = this.img.height/this.img.width;
-          this.img.width = this.width;
-          this.img.height = ratio * this.img.width;
-          console.log("If two");
-        }
-        console.log("Width 2: " + this.img.width);
-        console.log("Height 2: " + this.img.height);
-        if (this.img.width > this.width) {
-          var ratio = this.img.height/this.img.width;
-          this.img.width = this.width;
-          this.img.height = ratio * this.img.width;
-          console.log("If three");
-        } else if (this.img.height > this.height) {
-          var ratio = this.img.width/this.img.height;
-          this.img.height = this.height;
-          this.img.width = ratio * this.img.height;
-          console.log("If four");
-        }
-        console.log("Width 3: " + this.img.width);
-        console.log("Height 3: " + this.img.height);
-        //console.log("Image height: " + this.img.height);
-        this._CONTEXT.drawImage(this.img, 0, 0, this.img.width, this.img.height);
-     };
-     //this.img.onerror = function() {console.log("Image failed!");};
-     //console.log("Main img: " + this.mainImg);
-     this.img.src = this.mainImg;
-     this.img.alt = this.saveKey;
-     //console.log(this.img.src);
+       this.img.onload = () => {
+          console.log("Width 1: " + this.img.width);
+          console.log("Height 1: " + this.img.height);
+          //let pixelData = this._CONTEXT.getImageData(this.img.x, this.img.y, this.img.width, this.img.height);
+          if (this.imgData.width == 0 && this.imgData.height == 0) {
+              var width;
+              var height;
+              var ratio;
+              if (this.img.height > this.img.width) {
+                ratio = this.img.width/this.img.height;
+                height = this.height;
+                width = ratio * height;
+                console.log("If one");
+              } else {
+                ratio = this.img.height/this.img.width;
+                width = this.width;
+                height = ratio * width;
+                console.log("If two");
+              }
+              console.log("Width 2: " + width);
+              console.log("Height 2: " + height);
+              if (width > this.width) {
+                ratio = height/width;
+                width = this.width;
+                height = ratio * width;
+                console.log("If three");
+              } else if (height > this.height) {
+                ratio = width/height;
+                height = this.height;
+                width = ratio * height;
+                console.log("If four");
+              }
+              this.img.height = height;
+              this.img.width = width;
+              this.imgData.height = height;
+              this.imgData.width = width;
+          } else {
+              this.img.height = this.imgData.height;
+              this.img.width = this.imgData.width;
+          }
+          
+          console.log("Width 3: " + this.img.width);
+          console.log("Height 3: " + this.img.height);
+          //console.log("Image height: " + this.img.height);
+          this._CONTEXT.drawImage(this.img, 0, 0, this.img.width, this.img.height);
+       };
+       //this.img.onerror = function() {console.log("Image failed!");};
+       //console.log("Main img: " + this.mainImg);
+       this.img.src = this.mainImg;
+       this.img.alt = this.saveKey;
+       //console.log(this.img.src);
+    }
+  
   }
   initialiseCanvas() {
      if(this._CANVAS.getContext)
@@ -137,8 +167,9 @@ platform;
   //app is crashing here when most of image is colored in
   //something wrong in saveCanvasImage flow...
     this.saveCanvasImage();
+    console.log("ColorPage imgData: "+this.imgData.width);
     //console.log("camera() saveKey: "+this.saveKey);
-    this.navCtrl.push(TakePicturePage, {/*img: this.mainImg,*/ mode: this.mode, array:this.collection, saveKey: this.saveKey /*collection:this.story*/});
+    this.navCtrl.push(TakePicturePage, {/*img: this.mainImg,*/ mode: this.mode, array:this.collection, imgData: this.imgData /*collection:this.story*/});
   } 
 
   goBack() {
@@ -212,7 +243,7 @@ storeImage(imageBlob) {
   }
 
   isWhite(color) {
-    return (this.getR(color) > 30 && this.getG(color) > 30 && this.getB(color) > 30)
+    return (this.getR(color) > 240 && this.getG(color) > 240 && this.getB(color) > 240)
   }
 
   setPixel(pixelData, x, y, color) {

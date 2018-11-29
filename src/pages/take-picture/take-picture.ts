@@ -24,7 +24,7 @@ export class TakePicturePage {
 	mode;
 	//story;
 	collection;
-	saveKey;
+	imgData;
 	colorblot:string="#000000";
 	trackerTask;
 	selectedColor:string;
@@ -44,10 +44,10 @@ export class TakePicturePage {
 	color_B;
 	// automaticColorPicker = window.setInterval(() => this.takePicture(), 900);
 	cameraPreviewOpts: CameraPreviewOptions = {
-	      x: 10,
-	      y: 100,
-	      width: (window.screen.width-20),
-	      height: window.screen.height/2,
+	      x: 0,
+	      y: 0,
+	      width: (window.screen.width),
+	      height: (window.screen.height-150),
 	      camera: 'rear',
 	      toBack: false,
 	      tapPhoto: true,
@@ -56,13 +56,16 @@ export class TakePicturePage {
 	};
 
 	constructor(public navCtrl: NavController, public navParams: NavParams, private cameraPreview: CameraPreview) {
-		this.startCamera();
+		//this.startCamera();
+		this.cameraPreview.stopCamera();
+		this.cameraPreview.startCamera(this.cameraPreviewOpts);
+	    this.isOn = true;
 		//this.img = navParams.get("img");
 		this.mode = navParams.get("mode");
 		//this.story = navParams.get("collection");
 		this.collection = navParams.get("array");
-		this.saveKey = navParams.get("saveKey");
-		//console.log("Take Picture constructor saveKey: "+this.saveKey);
+		this.imgData = navParams.get("imgData");
+		
 	}
 
 	startCamera() {
@@ -113,7 +116,7 @@ export class TakePicturePage {
 			this.color_G =0;
 			this.color_B =211;
 		}
-		this.navCtrl.push(ColorPage, {/*img: this.img,*/ r: this.color_R, g: this.color_G, b: this.color_B, mode: this.mode, array:this.collection, saveKey:this.saveKey /*collection:this.story*/});
+		this.navCtrl.push(ColorPage, {/*img: this.img,*/ r: this.color_R, g: this.color_G, b: this.color_B, mode: this.mode, array:this.collection, imgData:this.imgData /*collection:this.story*/});
 	}
 
 	ionViewDidLoad() {
@@ -130,7 +133,7 @@ export class TakePicturePage {
 	   this._CANVAS.width = 500;
 	   this._CANVAS.height = 500;
 	   this.initialiseCanvas();
-	   this.colorCamera();
+	   //this.colorCamera();
 	   // this.takePicture();
 	}
 
@@ -151,9 +154,11 @@ export class TakePicturePage {
 
 	takePicture() {
 		// take a picture
+
 		this.findingStatus = "finding";
 		this.cameraPreview.takePicture(this.cameraPreviewOpts).then((imageData) => {
 		  // making a canvas
+		  //this.cameraPreview.hide();
 		  var picture = new Image(this._CANVAS.width, this._CANVAS.height);
 		  picture.src = 'data:image/jpeg;base64,' + imageData;
 		  this.imageSource = picture.src;
@@ -192,9 +197,10 @@ export class TakePicturePage {
 
 	clearColor() {
 		this.colorSelectionStatus = "notSelected";
-		this.colorblot = "#FFFFFF";
+		this.colorblot = "#000000";
 		this.findingStatus = "";
 		this.imageSource = "";
+		//this.cameraPreview.show();
 	}
 
 	ionViewWillLeave() {
@@ -205,5 +211,6 @@ export class TakePicturePage {
 	stopCamera() {
 		this.cameraPreview.hide();
 		this.cameraPreview.stopCamera();
+		//ionApp.style.display = 'block';
 	}
 }
