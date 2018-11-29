@@ -2,9 +2,8 @@ import { Component } from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
 
-import { ListPage } from '../list/list';
-
 import { Storage } from '@ionic/storage';
+import { PickStoryPage } from '../pick-story/pick-story';
 
 @Component({
   selector: 'page-hello-ionic',
@@ -15,7 +14,11 @@ export class HelloIonicPage {
   	this.storage.clear();
   }
 
-  goToHome() {
+  /*goToHome() {
   	this.navCtrl.push(ListPage);
+  }*/
+
+  goToGame() {
+  	this.navCtrl.push(PickStoryPage, {mode: 'opt1'});
   }
 }

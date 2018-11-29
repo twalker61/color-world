@@ -21,8 +21,8 @@ $app-direction: ltr;
 // the Sass variables found in Ionic's source scss files.
 // To view all the possible Ionic variables, see:
 // http://ionicframework.com/docs/theming/overriding-ionic-variables/
-$fab-size: 80px;
 
+$fab-size: 80px;
 
 
 // Named Color Variables
@@ -33,12 +33,19 @@ $fab-size: 80px;
 // colors so you can add, rename and remove colors as needed.
 // The "primary" color is the only required color in the map.
 
+// primary is orange
+// secondary is aqua
+// danger is dark orange
+// light is yellow
+// dark is sky blue
+
 $colors: (
-  primary:    #488aff,
-  secondary:  #32db64,
-  danger:     #f53d3d,
-  light:      #f4f4f4,
-  dark:       #222,
+  primary:    #F38630,
+  secondary:  #A7DBD8,
+  danger:     #FA6900,
+  light:      #E0E4CC,
+  dark:       #69D2E7,
+
   cyan:       #00ffff,
   darkgrey:   #a9a9a9,
   pink:       #ffc0cb,
@@ -49,6 +56,10 @@ $colors: (
   green:      #008000,
   purple:     #800080
 );
+
+$background-color: #A7DBD8;
+$toolbar-background: #F38630;
+$my-color: #E0E4CC; 
 
 
 // App iOS Variables

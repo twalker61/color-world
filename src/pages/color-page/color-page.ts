@@ -84,7 +84,7 @@ platform;
 
   loadPlatform() {
     this.platform.ready().then((readySource => {
-      this.width = this.platform.width();
+      this.width = this.platform.width() - 60;
       this.height = this.platform.height();
       console.log("Platform ready");
     }))
@@ -142,6 +142,7 @@ platform;
               this.img.height = this.imgData.height;
               this.img.width = this.imgData.width;
           }
+          this._CANVAS.height = this.img.height;
           
           console.log("Width 3: " + this.img.width);
           console.log("Height 3: " + this.img.height);
@@ -155,7 +156,13 @@ platform;
        //console.log(this.img.src);
     }
   
+    /*platform.ready().then((readySource => {
+      this.width = platform.width() - 60;
+      this.height = platform.height();
+    }));*/
+    
   }
+
   initialiseCanvas() {
      if(this._CANVAS.getContext)
      {
@@ -164,8 +171,6 @@ platform;
   }
 
   camera() {
-  //app is crashing here when most of image is colored in
-  //something wrong in saveCanvasImage flow...
     this.saveCanvasImage();
     console.log("ColorPage imgData: "+this.imgData.width);
     //console.log("camera() saveKey: "+this.saveKey);

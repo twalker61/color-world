@@ -1,19 +1,11 @@
-/*html, body, .ion-app, .ion-app.md, .content-md, .ion-content, div, canvas {
-	  background-color: transparent !important;
-	}*/
 
-	.take-picture-page {
-	/*#wrapper, ion-content, div, canvas, .content-md, .ion-app.md, .ion-app, .ion-content {
-		border-color: rgba(0, 0, 0, 0);
-		background-color: rgba(0, 0, 0, 0);
-	}*/
-	
+take-picture-page {
 	#wrapper {
 		display:flex;
-	    /*padding-top: 5%;
+	    padding-top: 5%;
 	    padding-right: 5%;
 	    padding-bottom: 20%;
-	    padding-left: 5%;*/
+	    padding-left: 5%;
 	}
 
 	#color-indicator {
@@ -34,14 +26,13 @@
 		fill: white;
 	}
 
-	ion-icon {
+	/*ion-icon {
 		font-size: 25px !important;
-	}
+	}*/
 
 	div {
 		float:none;
 		width: 100%;
-		//background-color: transparent;
 	}
 
 	video {

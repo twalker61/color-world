@@ -70,7 +70,7 @@ export class PickPicturePage {
   }
 
   goToHome() {
-    this.navCtrl.push(PickStoryPage);
+    this.navCtrl.push(PickStoryPage, {mode: this.mode})
   }
 
 }
