@@ -1,6 +1,7 @@
 import { Component, ElementRef, ViewChild} from '@angular/core';
 
 import { NavController, NavParams } from 'ionic-angular';
+import {Platform} from 'ionic-angular';
 
 import { CameraPreview, CameraPreviewPictureOptions, CameraPreviewOptions, CameraPreviewDimensions } from '@ionic-native/camera-preview';
 
@@ -20,12 +21,15 @@ export class TakePicturePage {
 	  @ViewChild('video') video: any;
 	  private _CANVAS  : any;
 	  private _CONTEXT : any;
+	width;
+	height;
+	platform;
 	img:string="";
 	mode;
 	//story;
 	collection;
 	imgData;
-	colorblot:string="#000000";
+	colorblot:string="#FFFFFF";
 	trackerTask;
 	selectedColor:string;
 	colortest="start";
@@ -34,6 +38,7 @@ export class TakePicturePage {
 	findingStatus:string = "";
 	imageSource:string = "";
 	colors = ['cyan', 'darkgrey', 'pink', 'yellow', 'orange', 'red', 'blue', 'green', 'purple'];
+	picture;
 	tracker;
 	button;
 	//pictureCanvas;
@@ -55,14 +60,24 @@ export class TakePicturePage {
 	      alpha: 1
 	};
 
-	constructor(public navCtrl: NavController, public navParams: NavParams, private cameraPreview: CameraPreview) {
+	constructor(public navCtrl: NavController, public navParams: NavParams, private cameraPreview: CameraPreview, private platform: Platform) {
 		//this.img = navParams.get("img");
 		this.mode = navParams.get("mode");
 		//this.story = navParams.get("collection");
 		this.collection = navParams.get("array");
 		this.imgData = navParams.get("imgData");
+		this.platform = platform;
+		this.loadPlatform();
 		
 	}
+
+	loadPlatform() {
+    this.platform.ready().then((readySource => {
+      this.width = this.platform.width() - 60;
+      this.height = this.platform.height();
+      console.log("Platform ready");
+    }))
+  }
 
 	startCamera() {
 	    this.cameraPreview.startCamera(this.cameraPreviewOpts);
@@ -145,7 +160,7 @@ export class TakePicturePage {
 	   {
 	      this._CONTEXT = this._CANVAS.getContext('2d');
 		  //this._CONTEXT.globalAlpha = 0;
-	      this.colortest="canvas initialized";
+	      //this.colortest="canvas initialized";
 	   }
 	}
 
@@ -158,24 +173,33 @@ export class TakePicturePage {
 	takePicture() {
 		// take a picture
 
+
 		this.findingStatus = "finding";
 		this.cameraPreview.takePicture(this.cameraPreviewOpts).then((imageData) => {
 		  // making a canvas
 		  //
-		  var picture = new Image(this._CANVAS.width, this._CANVAS.height);
-		  picture.src = 'data:image/jpeg;base64,' + imageData;
-		  this.imageSource = picture.src;
-		  //this.pictureContext.clearRect(0, 0, this.pictureCanvas.width, this.pictureCanvas.height);
+		  this.picture = new Image(this._CANVAS.width, this._CANVAS.height);
+		  this.picture.src = 'data:image/jpeg;base64,' + imageData;
+		  this.imageSource = this.picture.src;
+		  this._CONTEXT.clearRect(0, 0, this._CANVAS.width, this._CANVAS.height);
 		  // var context = this.pictureCanvas.getContext("2d");
 		  this.cameraPreview.hide();
-		  console.log("picture: " + picture.src);
-		  console.log("picture.width: " + picture.width);
-		  console.log("picture.height: " + picture.height);
-		  this._CONTEXT.drawImage(picture, 0, 0, picture.width, picture.height);
-		  this.trackerTask = tracking.trackImg_(picture, this.tracker);
+		  //console.log("picture: " + picture.src);
+		  //console.log("picture.width: " + picture.width);
+		  //console.log("picture.height: " + picture.height);
+		  
+		  this.picture.onload = () => {
+		  	 this._CONTEXT.drawImage(this.picture, this.width*.5*.1, 3, this.picture.width*.9, this.picture.height*.9);
+		  	 this._CONTEXT.lineWidth = 7.5;
+			  this._CONTEXT.strokeStyle = "#F38630";
+			  this._CONTEXT.rect(this.width*.5*.1-3, 0, this.picture.width*.9+6, this.picture.height*.9+6);
+			  this._CONTEXT.stroke();
+		  }
+		}).then(() => {
+			this.trackerTask = tracking.trackImg_(this.picture, this.tracker);
 
 		  this.tracker.on('track', (event) => {
-		    this._CONTEXT.clearRect(0, 0, this._CANVAS.width, this._CANVAS.height);
+		    //this._CONTEXT.clearRect(0, 0, this._CANVAS.width, this._CANVAS.height);
 		    // console.log(event.data);
 		    console.log("Took Picture!");
 		    event.data.forEach((rect) => {
@@ -185,7 +209,6 @@ export class TakePicturePage {
 		    	//this.colortest = rect.color + "";
 		        console.log(rect.color);
 		 
-		      // if (rect.width > 110 && rect.height > 110 && rect.x > (this._CANVAS.width / 3) && rect.x < ((this._CANVAS.width / 3) + 300) && rect.y > (this._CANVAS.height / 3) && rect.y < ((this._CANVAS.height / 3) + 300)) {
 		      if (rect.width > 110 && rect.height > 110) {
 			      this.colorblot = rect.color;
 				  this.colortest= this.colorblot+"";
@@ -208,7 +231,7 @@ export class TakePicturePage {
 
 	clearColor() {
 		this.colorSelectionStatus = "notSelected";
-		this.colorblot = "#000000";
+		this.colorblot = "#FFFFFF";
 		this.findingStatus = "";
 		this.imageSource = "";
 		this.cameraPreview.show();

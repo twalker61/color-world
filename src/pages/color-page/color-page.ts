@@ -22,6 +22,7 @@ export class ColorPage {
 @ViewChild('canvas') canvasEl : ElementRef;
 private _CANVAS  : any;
 private _CONTEXT  : any;
+hiddenCanvas;
 img = new Image();
 imgData;
 platform;
@@ -39,6 +40,8 @@ platform;
   color_R;
   color_G;
   color_B;
+  borderWidth = 5;
+  borderOffset = 3;
   constructor(public navCtrl: NavController, public navParams: NavParams, private element: ElementRef, platform: Platform, private file: File, private storage: Storage) {
     //this.mainImg = navParams.get("img");
     this.imgData = navParams.get("imgData");
