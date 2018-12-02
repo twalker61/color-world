@@ -6,10 +6,14 @@
 
 <ion-content>
 	<div id = "wrapper">
-		<h2>
-			<button ion-button class="small-round-button" (click) = "goBack()"><ion-icon name="arrow-back"></ion-icon></button>
-			COLOR
-		</h2>
+		<div>
+			<h2 id="left-items">
+				<button ion-button class="small-round-button" (click) = "goBack()"><ion-icon name="arrow-back"></ion-icon></button>
+				COLOR
+			</h2>
+			<button ion-button class="small-round-button" (click) = "clear()" id="clear-button"><ion-icon id = "clear-icon" name="close"></ion-icon></button>
+		</div>
+		
 		<!-- <img id ="picture" [src] = "mainImg"/> -->
 		<canvas #canvas (click) = "click($event)">
 
@@ -18,6 +22,7 @@
 		
 		<p>
 			<button ion-button class="small-round-button" (click) = "camera()" id="camera-button"><ion-icon id="camera-icon" name="brush"></ion-icon></button>
+
 		</p>
 	</div>
 </ion-content>

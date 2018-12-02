@@ -6,18 +6,30 @@ page-color {
 	    overflow: hidden;
 	}
 
+	#left-items {
+		float:left;
+	}
+
 	#picture {
 		flex-shrink: 0;
 	    width: 100%;
 	    height: 80%;
 	}
 
-	ion-icon {
+	#camera-icon {
 		font-size: 40px !important;
 	}
 
 	#camera-button {
 		height: 60px;
 		width: 60px;
+	}
+
+	#clear-button {
+		height: 40px;
+		width: 40px;
+		float: right;
+		margin-top:20px;
+		margin-left: 125px;
 	}
 }
