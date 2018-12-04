@@ -13,21 +13,21 @@
 </p> -->
 <ion-grid>
 	<ion-row>
-		<ion-col>
+		<ion-col col-5>
 			<img id = "animals" [src]="animalStory[0].src" (click) = "goToPictures($event)"/>
 			<h4 class="label">Animals</h4>
 		</ion-col>
-		<ion-col>
+		<ion-col col-5>
 			<img id = "play" [src]="playStory[0].src" (click) = "goToPictures($event)"/>
 			<h4>Birds</h4>
 		</ion-col>
 	</ion-row>
 	<ion-row>
-		<ion-col>
+		<ion-col col-5>
 			<img id = "disney" [src]="disneyStory[0].src" (click) = "goToPictures($event)"/>
 			<h4>Disney</h4>
 		</ion-col>
-		<ion-col>
+		<ion-col col-5>
 			<img id = "nature" [src]="natureStory[0].src" (click) = "goToPictures($event)"/>
 			<h4>Pokemon</h4>
 		</ion-col>
