@@ -13,9 +13,10 @@ import {ListPage} from '../list/list'
 export class PickStoryPage {
   mode: string = "";
   animalStory=[];
-  disneyStory=[];
+  foodStory=[];
   playStory=[];
   natureStory=[];
+  holidayStory=[];
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
     this.mode = navParams.get('mode');
@@ -37,17 +38,21 @@ export class PickStoryPage {
       this.playStory[1]={id:"castle", src:"../assets/imgs/SampleImageCollections/play/castle.png", width:0, height:0};
       this.playStory[2]={id:"icecream", src:"../assets/imgs/SampleImageCollections/play/ice_cream.png", width:0, height:0};
       this.playStory[3]={id:"robot", src:"../assets/imgs/SampleImageCollections/play/robot.png", width:0, height:0};
+      this.playStory[4]={id:"rocket", src:"../assets/imgs/SampleImageCollections/play/rocket.png", width:0, height:0};
+      this.playStory[5]={id:"train", src:"../assets/imgs/SampleImageCollections/play/train.png", width:0, height:0};
+      this.playStory[6]={id:"wizard", src:"../assets/imgs/SampleImageCollections/play/wizard.png", width:0, height:0};
 
 
-      this.disneyStory[0]={id:"ariel", src:"../assets/imgs/SampleImageCollections/disney/ariel.png", width:0, height:0};
-      this.disneyStory[1]={id:"ducklings", src:"../assets/imgs/SampleImageCollections/disney/ducklings.png", width:0, height:0};
-      this.disneyStory[2]={id:"flounder", src:"../assets/imgs/SampleImageCollections/disney/flounder.png", width:0, height:0};
-      this.disneyStory[3]={id:"genie", src:"../assets/imgs/SampleImageCollections/disney/genie.png", width:0, height:0};
-      this.disneyStory[4]={id:"pony", src:"../assets/imgs/SampleImageCollections/disney/mylittlepony.png", width:0, height:0};
-      this.disneyStory[5]={id:"daffy", src:"../assets/imgs/SampleImageCollections/disney/youngdaffy.png", width:0, height:0};
+      this.foodStory[0]={id:"cake", src:"../assets/imgs/SampleImageCollections/food/cake.png", width:0, height:0};
+      this.foodStory[1]={id:"gingerbread", src:"../assets/imgs/SampleImageCollections/food/gingerbread_man.png", width:0, height:0};
+      this.foodStory[2]={id:"pizza", src:"../assets/imgs/SampleImageCollections/food/pizza.png", width:0, height:0};
 
 
       this.natureStory[0]={id:"flower", src:"../assets/imgs/SampleImageCollections/nature/flower.png", width:0, height:0};
+      this.natureStory[1]={id:"island", src:"../assets/imgs/SampleImageCollections/nature/island.png", width:0, height:0};
+
+      this.holidayStory[0]={id:"halloween", src:"../assets/imgs/SampleImageCollections/holidays/halloween.png", width:0, height:0};
+      this.holidayStory[1]={id:"present", src:"../assets/imgs/SampleImageCollections/holidays/present.png", width:0, height:0};
 
   }
 
@@ -58,10 +63,12 @@ export class PickStoryPage {
       arr = this.animalStory;
     } else if (col == "play") {
       arr = this.playStory;
-    } else if (col == "disney") {
-      arr = this.disneyStory;
+    } else if (col == "food") {
+      arr = this.foodStory;
     } else if (col == "nature") {
       arr = this.natureStory;
+    } else if (col == "holidays") {
+      arr = this.holidayStory;
     }
     console.log(arr);
     this.navCtrl.push(PickPicturePage, {mode: this.mode, collection: col, array: arr});

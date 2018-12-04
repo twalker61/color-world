@@ -93,6 +93,8 @@ $my-color: #E0E4CC;
 @import "ionic.theme.default";
 
 
+
+
 // Ionicons
 // --------------------------------------------------
 // The premium icon font for Ionic. For more info, please see:
@@ -104,5 +106,4 @@ $my-color: #E0E4CC;
 // Fonts
 // --------------------------------------------------
 
-@import "roboto";
-@import "noto-sans";
+@import url(https://fonts.googleapis.com/css?family=Comic+Sans+MS);

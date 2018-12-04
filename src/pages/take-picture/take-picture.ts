@@ -163,6 +163,12 @@ export class TakePicturePage {
 	   this._CANVAS.width = (window.screen.width);
 	   this._CANVAS.height = (window.screen.height - 200);
 	   this.initialiseCanvas();
+       var searchBug = new Image(583, 585);
+       searchBug.src = "../assets/imgs/character_searching.png";
+       searchBug.onload = () => {
+        this._CONTEXT.drawImage(searchBug, this.width*.8, this.height*.8, 60, 60);
+       }
+       
 	   //this.colorCamera();
 	   // this.takePicture();
 	}
@@ -205,7 +211,7 @@ export class TakePicturePage {
 		  	 this._CONTEXT.lineWidth = 7.5;
 			  this._CONTEXT.strokeStyle = "#F38630";
 			  this._CONTEXT.rect(this.width*.5*.1-3, 0, this.picture.width*.9+6, this.picture.height*.9+6);
-			  this._CONTEXT.stroke();
+			  //this._CONTEXT.stroke();
 
             var sampleOptions = {
                 x: this.picture.width/3, 
@@ -220,6 +226,13 @@ export class TakePicturePage {
 		  this.currentColor = this.colorblot;
 		  this.findingStatus = "found";
 		  this.colorSelectionStatus = "selected";
+
+          this._CONTEXT.clearRect(0, 0, this._CANVAS.width, this._CANVAS.height);
+          var foundBug = new Image(631, 585);
+           foundBug.src = "../assets/imgs/character_found.png";
+           foundBug.onload = () => {
+            this._CONTEXT.drawImage(foundBug, 5, this.height*.8, 60, 60);
+           }
 		}, (err) => {
 		  console.log(err);
 		  //this.img = 'assets/img/test.jpg';
