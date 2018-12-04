@@ -79,8 +79,9 @@ export class TakePicturePage {
 
 	loadPlatform() {
     this.platform.ready().then((readySource => {
-      this.width = this.platform.width() - 60;
+      this.width = this.platform.width();
       this.height = this.platform.height();
+      console.log("Platform height" + this.height);
       console.log("Platform ready");
     }))
   }
@@ -161,14 +162,9 @@ export class TakePicturePage {
 	   this._CANVAS.x = 0;
 	   this._CANVAS.y = 0;
 	   this._CANVAS.width = (window.screen.width);
-	   this._CANVAS.height = (window.screen.height - 200);
+	   this._CANVAS.height = (window.screen.height);
 	   this.initialiseCanvas();
-       var searchBug = new Image(583, 585);
-       searchBug.src = "../assets/imgs/character_searching.png";
-       searchBug.onload = () => {
-        this._CONTEXT.drawImage(searchBug, this.width*.8, this.height*.8, 60, 60);
-       }
-       
+       this.drawCharacter("searching");
 	   //this.colorCamera();
 	   // this.takePicture();
 	}
@@ -196,7 +192,7 @@ export class TakePicturePage {
 		this.cameraPreview.takePicture(this.cameraPreviewOpts).then((imageData) => {
 		  // making a canvas
 		  //
-		  this.picture = new Image(this._CANVAS.width, this._CANVAS.height);
+		  this.picture = new Image(this._CANVAS.width, this._CANVAS.height - 200);
 		  this.picture.src = 'data:image/jpeg;base64,' + imageData;
 		  this.imageSource = this.picture.src;
 		  this._CONTEXT.clearRect(0, 0, this._CANVAS.width, this._CANVAS.height);
@@ -228,17 +224,29 @@ export class TakePicturePage {
 		  this.colorSelectionStatus = "selected";
 
           this._CONTEXT.clearRect(0, 0, this._CANVAS.width, this._CANVAS.height);
-          var foundBug = new Image(631, 585);
-           foundBug.src = "../assets/imgs/character_found.png";
-           foundBug.onload = () => {
-            this._CONTEXT.drawImage(foundBug, 5, this.height*.8, 60, 60);
-           }
+          this.drawCharacter("found");
 		}, (err) => {
 		  console.log(err);
 		  //this.img = 'assets/img/test.jpg';
 		});
 		// this.takePicture();
 	}
+
+    drawCharacter(status) {
+        if (status == "searching") {
+            var searchBug = new Image(583, 585);
+           searchBug.src = "../assets/imgs/character_searching.png";
+           searchBug.onload = () => {
+            this._CONTEXT.drawImage(searchBug, this.width - 130, this.height-150, 120, 120);
+           }
+        } else {
+            var foundBug = new Image(631, 585);
+           foundBug.src = "../assets/imgs/character_found.png";
+           foundBug.onload = () => {
+            this._CONTEXT.drawImage(foundBug, this.width/2-64, this.height - 150, 128, 120);
+           }
+        }
+    }
 
 	clearColor() {
         this.resetHueHistogram();
@@ -247,6 +255,8 @@ export class TakePicturePage {
 		this.findingStatus = "";
 		this.imageSource = "";
 		this.cameraPreview.show();
+        this._CONTEXT.clearRect(0,0,this._CANVAS.width, this._CANVAS.height);
+        this.drawCharacter("searching");
 	}
 
 	ionViewWillLeave() {
