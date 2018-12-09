@@ -231,52 +231,42 @@ storeImage(imageBlob) {
         });
 }
 
-  getPixel(pixelData, x, y) {
-      if (x < 0 || y < 0 || x >= pixelData.width || y >= pixelData.height) {
+  getPixel(pixels, x, y, pixelWidth, pixelHeight) {
+      if (x < 0 || y < 0 || x >= pixelWidth || y >= pixelHeight) {
+          // console.log("nothing at ( " + x + ", " + y + ")");
           return NaN;
       }
-      var pixels = pixelData.data;
-      var i = (y * pixelData.width + x) * 4;
-      return ((pixels[i + 0] & 0xFF) << 24) |
-             ((pixels[i + 1] & 0xFF) << 16) |
-             ((pixels[i + 2] & 0xFF) <<  8) |
-             ((pixels[i + 3] & 0xFF) <<  0);
-  }
-  convertColor(r,g,b) {
-      return ((r & 0xFF) << 24) |
-             ((g & 0xFF) << 16) |
-             ((b & 0xFF) <<  8) |
-             ((255 & 0xFF) <<  0);
-  }
+      var i = (y * pixelWidth + x) * 4;
 
-  getR(color) {
-    return (color >>> 24) & 0xFF;
-  }
-  getG(color) {
-    return (color >>> 16) & 0xFF;
-  }
-  getB(color) {
-    return (color >>>  8) & 0xFF;
+      var rgb = {r: pixels[i + 0],
+              g: pixels[i + 1],
+              b: pixels[i + 2]};
+      return rgb;
   }
 
   isWhite(color) {
-    return (this.getR(color) > 100 && this.getG(color) > 100 && this.getB(color) > 100)
+    return (color.r > 100 && color.g > 100 && color.b > 100);
   }
 
-  setPixel(pixelData, x, y, color) {
-      var i = (y * pixelData.width + x) * 4;
-      var pixels = pixelData.data;
-      pixels[i + 0] = (color >>> 24) & 0xFF;
-      pixels[i + 1] = (color >>> 16) & 0xFF;
-      pixels[i + 2] = (color >>>  8) & 0xFF;
-      pixels[i + 3] = (color >>>  0) & 0xFF;
+  isBlack(color) {
+    return(color.r < 50 && color.g < 50 && color.b < 50);
+  }
+
+  setPixel(pixels, x, y, color, pixelWidth) {
+      var i = (y * pixelWidth + x) * 4;
+      pixels[i + 0] = color.r;
+      pixels[i + 1] = color.g;
+      pixels[i + 2] = color.b;
+  }
+
+  isColorSame(color1, color2) {
+    return (color1.r == color2.r && color1.g == color2.g && color1.b == color2.b);
   }
 
   click(event) {
     if (typeof this.color_R !== 'undefined') {
       this.floodFill(this._CANVAS, event.clientX, event.clientY, this.color_R,this.color_G,this.color_B);
     }
-    
   }
 
   clear() {
@@ -292,63 +282,69 @@ storeImage(imageBlob) {
   }
 
   floodFill(canvas, x, y, r, g, b) {
+    var start = performance.now();
       x-= canvas.offsetLeft;
       y-=canvas.offsetTop;
-      var current, w, e, stack, color, cx, cy;
+      var current, left, right, stack, color, cx, cy;
       var context = canvas.getContext("2d");
       var pixelData = context.getImageData(0, 0, canvas.width, canvas.height);
-      //console.log(this.getPixel(pixelData, x, y));
-      var replacementColor = this.convertColor(r,g,b);
-      //console.log(replacementColor);
-      var firstColor = this.getPixel(pixelData, x, y);
-      //console.log(this.getR(firstColor));
-      //console.log(this.getG(firstColor));
-      //console.log(this.getB(firstColor));
+      var pixelArray = pixelData.data;
+      var pixelWidth = pixelData.width;
+      var pixelHeight = pixelData.height;
+
+      var replacementColor = {r: Math.round(r),
+                              g: Math.round(g),
+                              b: Math.round(b)};
+      var oldColor = this.getPixel(pixelArray, x, y, pixelWidth, pixelHeight);
+
+      if (this.isBlack(oldColor) || this.isColorSame(replacementColor, oldColor)) {
+        return;
+      }
       var done = [];
       for (var i = 0; i < canvas.width; i++) {
           done[i] = [];
       }
 
-      var targetColor = this.getPixel(pixelData, x, y);
-
       stack = [ [x, y] ];
-      //console.log(x)
       done[x][y] = true;
       while ((current = stack.pop())) {
           cx = current[0];
           cy = current[1];
-          if (this.isWhite(this.getPixel(pixelData, cx, cy))) {
-              this.setPixel(pixelData, cx, cy, replacementColor);
+          
+          if (!this.isBlack(this.getPixel(pixelArray, cx, cy, pixelWidth, pixelHeight))) {
+              this.setPixel(pixelArray, cx, cy, replacementColor, pixelWidth);
 
-              w = e = cx;
-              while (w > 0 && this.isWhite(this.getPixel(pixelData, w - 1, cy))) {
-                  --w;
-                  if (done[w][cy]) break;
-                  this.setPixel(pixelData, w, cy, replacementColor);
-              }
-              while (e < pixelData.width - 1 && this.isWhite(this.getPixel(pixelData, e + 1, cy))) {
-                  ++e;
-                  if (done[e][cy]) break;
-                  this.setPixel(pixelData, e, cy, replacementColor);
+              left = right = cx;
+
+              while (left > 0 && !this.isBlack(this.getPixel(pixelArray, left - 1, cy, pixelWidth, pixelHeight))) {
+                  --left;
+                  if (done[left][cy]) {
+                    break;
+                  }
+                  this.setPixel(pixelArray, left, cy, replacementColor, pixelWidth);
+                  done[left][cy] = true;
               }
 
-              for (cx = w; cx <= e; cx++) {
+              while (right < pixelWidth - 1 && !this.isBlack(this.getPixel(pixelArray, right + 1, cy, pixelWidth, pixelHeight))) {
+                  ++right;
+                  if (done[right][cy]) {
+                    break;
+                  }
+                  this.setPixel(pixelArray, right, cy, replacementColor, pixelWidth);
+                  done[right][cy] = true;
+              }
+
+              for (cx = left; cx <= right; cx++) {
                   if (cy > 0) {
-                      color = this.getPixel(pixelData, cx, cy - 1);
-                      if (this.isWhite(color)) {
-                          if (!done[cx][cy - 1]) {
-                              stack.push([cx, cy - 1]);
-                              done[cx][cy - 1] = true;
-                          }
+                      if (!done[cx][cy - 1]) {
+                          stack.push([cx, cy - 1]);
+                          done[cx][cy - 1] = true;
                       }
                   }
-                  if (cy < canvas.height - 1) {
-                      color = this.getPixel(pixelData, cx, cy + 1);
-                      if (this.isWhite(color)) {
-                          if (!done[cx][cy + 1]) {
-                              stack.push([cx, cy + 1]);
-                              done[cx][cy + 1] = true;
-                          }
+                  if (cy < pixelHeight - 1) {
+                      if (!done[cx][cy + 1]) {
+                          stack.push([cx, cy + 1]);
+                          done[cx][cy + 1] = true;
                       }
                   }
               }
@@ -356,6 +352,8 @@ storeImage(imageBlob) {
       }
 
       context.putImageData(pixelData, 0, 0, 0, 0, canvas.width, canvas.height);
+      var end = performance.now();
+      console.log("Action took " + (end - start) + " ms long!");
   }
 
 }
