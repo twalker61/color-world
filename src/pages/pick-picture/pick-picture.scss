@@ -8,4 +8,23 @@ page-pick-picture {
 		background-color: rgba(105, 105, 105, 0.5);
 		border-radius: 2vw;
 	}
+
+	h2 {
+		//margin-top:15vw;
+		align-self:flex-start;
+		margin-left:5vw;
+	}
+
+	#back-button {
+		align-self:flex-start;
+		margin-left:5vw;
+	}
+
+	#character {
+		position:absolute;
+		width:20vw;
+		height:20vw;
+		top:20vw;
+		right:5vw;
+	}
 }

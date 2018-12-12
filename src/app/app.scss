@@ -46,35 +46,30 @@ ion-content {
 
 h1 {
 	color: white;
-	font-size: 14vw;
+	font-size: 18vw;
 	text-align: center;
 }
 
 h2 {
 	color: white;
-	font-size: 6vw;
+	font-size: 10vw;
+}
+
+h4 {
+	font-size: 7vw;
 }
 
 img {
 	border-radius: 2vw;
 }
 
-p {
-  font-family: "Comic Sans MS", cursive, sans-serif;
+@font-face {
+  font-family: 'GamjaFlower';
+  src: url('../assets/fonts/gamja-flower-regular.ttf') format('ttf'), url('../assets/fonts/gamja-flower-regular.woff') format('woff'), url('../assets/fonts/gamja-flower-regular.woff2') format('woff2');
+  font-weight: normal;
+  font-style: normal;
 }
 
-h1 {
-  font-family: "Comic Sans MS", cursive, sans-serif;
-}
-
-h2 {
-  font-family: "Comic Sans MS", cursive, sans-serif;
-}
-
-h3 {
-  font-family: "Comic Sans MS", cursive, sans-serif;
-}
-
-h4 {
-  font-family: "Comic Sans MS", cursive, sans-serif;
+* {
+  font-family: 'GamjaFlower';
 }

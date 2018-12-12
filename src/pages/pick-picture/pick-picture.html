@@ -5,10 +5,12 @@
 </ion-header> -->
 <ion-content>
   <div id="wrapper">
+    <button id= "back-button" ion-button class="small-round-button" (click)="goToHome()"><ion-icon name="arrow-back"></ion-icon></button>
   <h2>
-    <button ion-button class="small-round-button" (click)="goToHome()"><ion-icon name="arrow-back"></ion-icon></button>
+    
     PICK A PICTURE
   </h2>
+  <img id="character" src="../assets/imgs/bug_found.svg"/>
   <ion-grid >
       <ion-row *ngFor="let row of grid" >
         <ion-col *ngFor="let img of row" >

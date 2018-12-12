@@ -7,7 +7,7 @@ page-color {
 	}
 
 	.can {
-		outline: #A7DBD8 5px solid;
+		//outline: #A7DBD8 5px solid;
 	}
 
 	#left-items {
@@ -35,5 +35,32 @@ page-color {
 		float: right;
 		margin-top:20px;
 		margin-left: 125px;
+	}
+
+	#character {
+		position:absolute;
+		width:20vw;
+		height:20vw;
+		bottom:0vw;
+		left:20vw;
+	}
+	#speech-bubble {
+		position:absolute;
+		bottom:15vw;
+		left:20vw;
+	}
+
+	#bubble {
+		//position:absolute;
+		width:100vw;
+		height:25vw;
+		bottom:20vw;
+	}
+	#text {
+		font-size:7vw;
+		position:absolute;
+		bottom:7vw;
+		left:5vw;
+		width:80vw;
 	}
 }

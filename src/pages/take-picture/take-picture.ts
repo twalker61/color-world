@@ -135,8 +135,8 @@ export class TakePicturePage {
 		// 	this.color_G =0;
 		// 	this.color_B =211;
 		// }
-
-		this.navCtrl.push(ColorPage, {/*img: this.img,*/ r: this.color_R, g: this.color_G, b: this.color_B, mode: this.mode, array:this.collection, imgData:this.imgData /*collection:this.story*/});
+        console.log("Done");
+		this.navCtrl.push(ColorPage, {r: this.color_R, g: this.color_G, b: this.color_B, mode: this.mode, array:this.collection, imgData:this.imgData});
 	}
 
 	ionViewDidLoad() {
@@ -235,15 +235,15 @@ export class TakePicturePage {
     drawCharacter(status) {
         if (status == "searching") {
             var searchBug = new Image(583, 585);
-           searchBug.src = "../assets/imgs/character_searching.png";
+           searchBug.src = "../assets/imgs/bug_searching.svg";
            searchBug.onload = () => {
-            this._CONTEXT.drawImage(searchBug, this.width - 130, this.height-150, 120, 120);
+            this._CONTEXT.drawImage(searchBug, this.width - 130, this.height-100, 90, 90);
            }
         } else {
             var foundBug = new Image(631, 585);
-           foundBug.src = "../assets/imgs/character_found.png";
+           foundBug.src = "../assets/imgs/bug_found.svg";
            foundBug.onload = () => {
-            this._CONTEXT.drawImage(foundBug, this.width/2-64, this.height - 150, 128, 120);
+            this._CONTEXT.drawImage(foundBug, this.width/2-84, this.height - 100, 96, 90);
            }
         }
     }

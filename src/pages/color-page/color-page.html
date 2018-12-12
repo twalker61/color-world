@@ -5,6 +5,17 @@
 </ion-header> -->
 <ion-content>
 	<div id = "wrapper">
+		<img id="character" src="../assets/imgs/bug_found.svg" (click)="toggleSpeechBubble()"/>
+		<div id="speech-bubble" [ngSwitch]="textStatus">
+			<!-- <p *ngSwitchCase="'showing'">Click here to find a color!</p>
+			<p *ngSwitchCase="'hidden'"></p> -->
+			<div *ngSwitchCase="'showing'">
+				<img id="bubble" src="../assets/imgs/speech-bubble.svg"/>
+				<p id="text">Click here to find a color!</p>
+			</div>
+			<div *ngSwitchCase="'hidden'">
+			</div>
+		</div>
 		<div>
 			<h2 id="left-items">
 				<button ion-button class="small-round-button" (click) = "goBack()"><ion-icon name="arrow-back"></ion-icon></button>

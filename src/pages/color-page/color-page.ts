@@ -42,7 +42,9 @@ platform;
   color_B;
   borderWidth = 5;
   borderOffset = 3;
+  textStatus;
   constructor(public navCtrl: NavController, public navParams: NavParams, private element: ElementRef, platform: Platform, private file: File, private storage: Storage) {
+    this.textStatus= 'hidden';
     //this.mainImg = navParams.get("img");
     this.imgData = navParams.get("imgData");
     console.log("ColorPage imgData: "+this.imgData.width);
@@ -278,6 +280,14 @@ storeImage(imageBlob) {
         this.ionViewDidLoad();
       }
       this.saveCanvasImage();
+    }
+  }
+
+  toggleSpeechBubble() {
+    if (this.textStatus=='showing') {
+      this.textStatus='hidden';
+    } else {
+      this.textStatus='showing';
     }
   }
 
