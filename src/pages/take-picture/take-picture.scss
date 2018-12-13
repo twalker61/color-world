@@ -20,27 +20,27 @@ take-picture-page {
 	}
 	#speech-bubble {
 		position:absolute;
-		bottom:5vw;
-		left:20vw;
+		bottom:6vh;
+		left:10vw;
 	}
 
 	#bubble {
 		position:absolute;
 		width:80vw;
 		height:25vw;
-		//bottom:20vw;
+		bottom: -3vh;
 		z-index:-1;
 	}
 	#text {
 		font-size:7vw;
 		position:absolute;
-		bottom:22vw;
+		bottom: -0.5vh;
 		left:10vw;
 		width:80vw;
 	}
 	#color-blot {
 		position:absolute;
-		bottom:19vw;
+		bottom: 0vh;
 		left:40vw;
 		z-index:1;
 	}
@@ -74,8 +74,8 @@ take-picture-page {
 	}
 
 	.large-round-button {
-	 	width:17vw;
-	 	height:17vw;
+	 	//width:15vw;
+	 	//height:15vw;
 	}
 
 	#confirmColorButton {

@@ -21,20 +21,33 @@ page-color {
 	}
 
 	#camera-icon {
-		font-size: 40px !important;
+		//font-size: 40px !important;
+		font-size: 5vw;
 	}
 
 	#camera-button {
-		height: 60px;
-		width: 60px;
+		position: absolute;
+		height: 5vw;
+		width: 5vw;
+		//bottom: 0vh;
+		left: 45vw;
+	}
+
+	#back-button {
+		position: absolute;
+		left: 4vw;
+		top: 3vw;
 	}
 
 	#clear-button {
-		height: 40px;
-		width: 40px;
-		float: right;
-		margin-top:20px;
-		margin-left: 125px;
+		//height: 40px;
+		//width: 40px;
+		position: absolute;
+		right: 4vw;
+		top: 3vw;
+		//float: right;
+		//margin-top:20px;
+		//margin-left: 125px;
 	}
 
 	#character {

@@ -32,8 +32,8 @@ button {
 
 .small-round-button {
 	border-radius: 50%;
-	width: 10vw;
-	height: 10vw;
+	width: 10vw !important;
+	height: 10vw !important;
 	vertical-align: middle;
 }
 
@@ -65,11 +65,13 @@ img {
 
 @font-face {
   font-family: 'GamjaFlower';
-  src: url('../assets/fonts/gamja-flower-regular.ttf') format('ttf'), url('../assets/fonts/gamja-flower-regular.woff') format('woff'), url('../assets/fonts/gamja-flower-regular.woff2') format('woff2');
+  src: url('../assets/fonts/gamja-flower-v5-latin-regular.ttf') format('ttf'), 
+  	url('../assets/fonts/gamja-flower-v5-latin-regular.woff') format('woff'),
+  	url('../assets/fonts/gamja-flower-v5-latin-regular.woff2') format('woff2');
   font-weight: normal;
   font-style: normal;
 }
 
-* {
-  font-family: 'GamjaFlower';
+body, h1, h2, h3, h4 {
+  font-family: 'GamjaFlower' !important;
 }
