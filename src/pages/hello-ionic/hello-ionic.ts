@@ -11,7 +11,7 @@ import { PickStoryPage } from '../pick-story/pick-story';
 })
 export class HelloIonicPage {
   constructor(public navCtrl: NavController, private storage: Storage) {
-  	this.storage.clear();
+  	//this.storage.clear();
   }
 
   /*goToHome() {
