@@ -243,7 +243,7 @@ export class TakePicturePage {
             var foundBug = new Image(631, 585);
            foundBug.src = "../assets/imgs/bug_found.svg";
            foundBug.onload = () => {
-            this._CONTEXT.drawImage(foundBug, this.width/2-84, this.height - 100, 96, 90);
+            this._CONTEXT.drawImage(foundBug, this.width/6, this.height - 100, 96, 90);
            }
         }
     }

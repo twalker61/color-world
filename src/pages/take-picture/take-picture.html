@@ -23,12 +23,12 @@
 			</ion-fab>
 
 			<div *ngSwitchCase="'selected'">
-				<ion-fab left bottom>
+				<ion-fab left top>
 				<!-- <button ion-button id="selectColorButton" (click) = "selectColor()" [style.backgroundColor]="colorblot"> Select Color </button> -->
 					<button ion-fab id="cancelColorButton" class="large-round-button" (click) = "clearColor()" style="border: red"> <ion-icon name="close"></ion-icon> </button>
 				</ion-fab>
 
-				<ion-fab right bottom>
+				<ion-fab center bottom>
 				<!-- <button ion-button id="selectColorButton" (click) = "selectColor()" [style.backgroundColor]="colorblot"> Select Color </button> -->
 					<button ion-fab id="confirmColorButton" class="large-round-button" (click) = "selectColor()" [style.backgroundColor]="colorblot"> <ion-icon name="checkmark"></ion-icon> </button>
 				</ion-fab>
