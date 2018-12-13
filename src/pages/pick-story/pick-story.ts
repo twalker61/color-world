@@ -36,20 +36,25 @@ export class PickStoryPage {
       
       this.playStory[0]={id:"alien", src:"../assets/imgs/SampleImageCollections/play/alien.png", width:0, height:0};
       this.playStory[1]={id:"castle", src:"../assets/imgs/SampleImageCollections/play/castle.png", width:0, height:0};
-      this.playStory[2]={id:"icecream", src:"../assets/imgs/SampleImageCollections/play/ice_cream.png", width:0, height:0};
-      this.playStory[3]={id:"robot", src:"../assets/imgs/SampleImageCollections/play/robot.png", width:0, height:0};
-      this.playStory[4]={id:"rocket", src:"../assets/imgs/SampleImageCollections/play/rocket.png", width:0, height:0};
-      this.playStory[5]={id:"train", src:"../assets/imgs/SampleImageCollections/play/train.png", width:0, height:0};
-      this.playStory[6]={id:"wizard", src:"../assets/imgs/SampleImageCollections/play/wizard.png", width:0, height:0};
+      this.playStory[2]={id:"robot", src:"../assets/imgs/SampleImageCollections/play/robot.png", width:0, height:0};
+      this.playStory[3]={id:"rocket", src:"../assets/imgs/SampleImageCollections/play/rocket.png", width:0, height:0};
+      this.playStory[4]={id:"train", src:"../assets/imgs/SampleImageCollections/play/train.png", width:0, height:0};
+      this.playStory[5]={id:"wizard", src:"../assets/imgs/SampleImageCollections/play/wizard.png", width:0, height:0};
+      this.playStory[6]={id:"clown", src:"../assets/imgs/SampleImageCollections/play/clown.png", width:0, height:0};
+      this.playStory[7]={id:"planet", src:"../assets/imgs/SampleImageCollections/play/planet.png", width:0, height:0};
+      this.playStory[8]={id:"knight", src:"../assets/imgs/SampleImageCollections/play/knight.png", width:0, height:0};
 
 
       this.foodStory[0]={id:"cake", src:"../assets/imgs/SampleImageCollections/food/cake.png", width:0, height:0};
       this.foodStory[1]={id:"gingerbread", src:"../assets/imgs/SampleImageCollections/food/gingerbread_man.png", width:0, height:0};
       this.foodStory[2]={id:"pizza", src:"../assets/imgs/SampleImageCollections/food/pizza.png", width:0, height:0};
+      this.foodStory[3]={id:"icecream", src:"../assets/imgs/SampleImageCollections/food/ice_cream.png", width:0, height:0};
+      this.foodStory[4]={id:"candy", src:"../assets/imgs/SampleImageCollections/food/candy.png", width:0, height:0};
 
 
       this.natureStory[0]={id:"flower", src:"../assets/imgs/SampleImageCollections/nature/flower.png", width:0, height:0};
       this.natureStory[1]={id:"island", src:"../assets/imgs/SampleImageCollections/nature/island.png", width:0, height:0};
+      this.natureStory[2]={id:"barn", src:"../assets/imgs/SampleImageCollections/nature/barn.png", width:0, height:0};
 
       this.holidayStory[0]={id:"halloween", src:"../assets/imgs/SampleImageCollections/holidays/halloween.png", width:0, height:0};
       this.holidayStory[1]={id:"present", src:"../assets/imgs/SampleImageCollections/holidays/present.png", width:0, height:0};
